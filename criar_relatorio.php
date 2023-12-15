@@ -44,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['criar_relatorio_form'
         'anexos' => $anexos  // Armazenar os caminhos dos anexos
     );
 
-    // Armazenar o array do relatório na variável de sessão
-    $_SESSION['relatorios'][1] = json_encode($relatorio);
+    $proxIndice = count($_SESSION['relatorios']) + 1;
+    $_SESSION['relatorios'][$proxIndice] = json_encode($relatorio);
 
     // Redirecionar de volta para a página de relatórios após criar o relatório
     header("Location: relatorios.php");
