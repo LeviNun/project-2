@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['criar_relatorio_form'
     );
 
     // Armazenar o array do relatório na variável de sessão
-    $_SESSION['relatorios'][] = json_encode($relatorio);
+    $_SESSION['relatorios'][1] = json_encode($relatorio);
 
     // Redirecionar de volta para a página de relatórios após criar o relatório
     header("Location: relatorios.php");
