@@ -86,7 +86,7 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
         echo '<p>Há relatórios disponíveis. Escolha um abaixo para mostrar ou apagar:</p>';
         foreach ($_SESSION['relatorios'] as $index => $relatorio) {
             echo '<p>';
-            echo '<a href="mostrar_relatorio.php?relatorio='.$index.'">Relatório '.($index + 1).'</a>';
+            echo '<a href="mostrar_relatorio.php?relatorio='.$index.'">Relatório '.($index ).'</a>';
             echo ' | ';
             echo '<a href="relatorios.php?acao=apagar&relatorio=' . $index . '">Apagar</a>';
             echo '</p>';
