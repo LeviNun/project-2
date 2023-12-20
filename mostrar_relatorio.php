@@ -54,6 +54,7 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
         }
 
         .content {
+            position: relative;
             width: 80%;
             max-width: 800px;
             background-color: #fff;
@@ -70,31 +71,67 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
         }
 
         h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            color: #8e44ad; /* Roxo */
+            font-size: 50px;
+            margin-bottom: 30px;
+            font-weight: bold; /* Negrito */
+            font-family: 'Times New Roman', serif; /* Fonte diferente, ajuste conforme necessário */
         }
 
         h2 {
-            font-size: 28px;
+            font-size: 32px;
             margin-bottom: 20px;
-            color: #2ecc71; /* Verde */
+            font-family: 'Times New Roman', serif; /* Fonte diferente, ajuste conforme necessário */
         }
 
         p {
-            font-size: 16px;
+            font-size: 20px;
             line-height: 1.6;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        nav {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #333;
+            overflow: hidden;
+            text-align: center;
+            padding: 10px;
+        }
+
+        nav a {
+            display: inline-block;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #555;
         }
     </style>
 </head>
 <body>
+<nav>
+        <?php
+         // Adicionar link para baixar o relatório
+    echo '<p><a href="download_relatorio.php?relatorio=' . $relatorioIndex . '">Baixar este relatório</a></p>';
+    // Link para apagar o relatório atual
+    echo '<p><a href="relatorios.php?acao=apagar&relatorio=' . $relatorioIndex . '">Apagar este relatório</a></p>';
+    
+    // Link para voltar para a página de relatórios
+    echo '<p><a href="relatorios.php">Voltar para Relatórios</a></p>';
+        ?>
+    </nav>
 
 <!-- Conteúdo da Página -->
 <div class="content">
+    
+    
+
     <h1>SergipeTec</h1>
     <h2>Relatório</h2>
-
     <?php
     // Exibir detalhes do relatório
     if (isset($relatorio['titulo'])) {
@@ -124,15 +161,12 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
 
     }
     
-    // Adicionar link para baixar o relatório
-    echo '<p><a href="download_relatorio.php?relatorio=' . $relatorioIndex . '">Baixar este relatório</a></p>';
-     // Adicionar link para baixar o relatório
-     echo '<p><a href="https://www.sejda.com/pt/html-to-pdf=' . $relatorioIndex . '">Baixar em pdf pelo sedja</a></p>';
-    // Link para apagar o relatório atual
-    echo '<p><a href="relatorios.php?acao=apagar&relatorio=' . $relatorioIndex . '">Apagar este relatório</a></p>';
+
+
+
+
+
     
-    // Link para voltar para a página de relatórios
-    echo '<p><a href="relatorios.php">Voltar para Relatórios</a></p>';
     ?>
 </div>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XERECA</title>
+    <title>TESTE</title>
     <style>
         body {
             margin: 0;
@@ -75,11 +75,9 @@
         <noscript><img src='http://sergipetec.org.br/wp-content/uploads/2016/04/sergipetec300x140.png' alt='Sergipetec'></noscript>
     </a>
     <a href="perfil.php">Perfil</a>
-    <a href="https://www.youtube.com/watch?v=WgntYmo7Uho">ouça</a>
-    <a href="relatorios.php">Relatórios</a>
     <a href="projetos.php">Projetos</a>
     <a href="ger_atividades.php">Gerenciar atividades</a>
-    <a href="https://www.instagram.com/levinxs_14/">cnpjotopow?</a>
+    <a href="relatorios.php">Relatorios</a>
 </nav>
 
 <!-- Script de Personalização -->

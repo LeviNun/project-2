@@ -1,6 +1,9 @@
 <?php
 session_start();
-
+// Inicializar a variável de sessão 'relatorios' se não estiver definida
+if (!isset($_SESSION['relatorios'])) {
+    $_SESSION['relatorios'] = array();
+}
 // Adicionar condição para criar relatório
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['criar_relatorio_form'])) {
     // Obter dados do formulário
@@ -44,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['criar_relatorio_form'
         'anexos' => $anexos  // Armazenar os caminhos dos anexos
     );
 
+    // Armazenar o array do relatório na variável de sessão
     $proxIndice = count($_SESSION['relatorios']) + 1;
     $_SESSION['relatorios'][$proxIndice] = json_encode($relatorio);
 
