@@ -18,7 +18,7 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
         unset($_SESSION['relatorios'][$relatorioIndex]);
 
         // Reorganizar os índices do array após a exclusão
-        $_SESSION['relatorios'] = array_values($_SESSION['relatorios']);
+       // $_SESSION['relatorios'] = array_values($_SESSION['relatorios']);
     }
 }
 ?>
