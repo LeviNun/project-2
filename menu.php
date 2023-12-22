@@ -75,7 +75,6 @@
         <noscript><img src='http://sergipetec.org.br/wp-content/uploads/2016/04/sergipetec300x140.png' alt='Sergipetec'></noscript>
     </a>
     <a href="perfil.php">Perfil</a>
-    <a href="projetos.php">Projetos</a>
     <a href="ger_atividades.php">Gerenciar atividades</a>
     <a href="relatorios.php">Relatorios</a>
 </nav>

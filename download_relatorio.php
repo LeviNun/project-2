@@ -4,23 +4,26 @@ require 'dompdf/autoload.inc.php'; // Ajuste o caminho conforme necessário
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-session_start();
+// Verifica se a sessão foi iniciada
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Verifica se o parâmetro relatorio está definido e é um número inteiro
-if (isset($_GET['relatorio']) && filter_var($_GET['relatorio'], FILTER_VALIDATE_INT)) {
-    $relatorioIndex = $_GET['relatorio'];
+// Verificar se o parâmetro relatorio está definido e é um número inteiro
+if (isset($_GET['relatorio']) && is_string($_GET['relatorio'])) {
+    $relatorioId = $_GET['relatorio'];
 
-    // Verifica se o índice do relatório existe na sessão
-    if (isset($_SESSION['relatorios'][$relatorioIndex])) {
-        $relatorio = json_decode($_SESSION['relatorios'][$relatorioIndex], true);
-
-        // Gera o PDF e realiza o download automático
+    // Verificar se o identificador do relatório existe na sessão
+    if (isset($_SESSION['relatorios'][$relatorioId])) {
+        $relatorio = json_decode($_SESSION['relatorios'][$relatorioId], true);
         gerarEDownloadPDF($relatorio);
     } else {
         echo '<p>Relatório não encontrado.</p>';
+        exit(); // Encerre a execução para evitar a exibição do restante da página
     }
 } else {
     echo '<p>Parâmetro de relatório inválido.</p>';
+    exit(); // Encerre a execução para evitar a exibição do restante da página
 }
 
 function gerarEDownloadPDF($relatorio) {
@@ -57,6 +60,7 @@ function obterConteudoPDF($relatorio) {
     ob_start();
     ?>
 
+    <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
