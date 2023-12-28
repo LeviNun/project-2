@@ -1,99 +1,133 @@
 <?php
-session_start();
-
+// Verifica se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Verificar se foi enviado um arquivo
-    if (isset($_FILES['arquivo']) && isset($_POST['projeto_nome'])) {
-        $arquivo_nome = $_FILES['arquivo']['name'];
-        $arquivo_temp = $_FILES['arquivo']['tmp_name'];
-        $projeto_nome = $_POST['projeto_nome'];
-
-        // Criar a pasta do projeto se não existir
-        $projeto_pasta = 'uploads/' . strtolower(str_replace(' ', '_', $projeto_nome));
-        if (!file_exists($projeto_pasta)) {
-            mkdir($projeto_pasta, 0777, true);
+    // Verifica se o botão de criação de projeto foi pressionado
+    if (isset($_POST['criar_projeto'])) {
+        $nome_projeto = $_POST['nome_projeto'];
+        
+        // Cria uma pasta para o projeto
+        if (!file_exists($nome_projeto)) {
+            mkdir('projetos/' . $nome_projeto);
+            echo "Projeto '$nome_projeto' criado com sucesso.";
+        } else {
+            echo "O projeto '$nome_projeto' já existe.";
         }
+    }
 
-        // Mover o arquivo para a pasta do projeto
-        $destino = $projeto_pasta . '/' . $arquivo_nome;
-        move_uploaded_file($arquivo_temp, $destino);
+    // Verifica se o botão de adição de setor foi pressionado
+    if (isset($_POST['adicionar_setor'])) {
+        $nome_projeto = $_POST['projeto'];
+        $nome_setor = $_POST['nome_setor'];
+        
+        // Cria uma pasta para o setor dentro do projeto
+        $caminho_setor = 'projetos/' . $nome_projeto . '/' . $nome_setor;
+        if (!file_exists($caminho_setor)) {
+            mkdir($caminho_setor);
+            echo "Setor '$nome_setor' adicionado ao projeto '$nome_projeto' com sucesso.";
+        } else {
+            echo "O setor '$nome_setor' já existe no projeto '$nome_projeto'.";
+        }
+    }
 
-        echo "Upload bem-sucedido! O arquivo está em: $destino";
-    } else {
-        echo "Erro ao enviar o arquivo. Certifique-se de escolher um arquivo e informar o nome do projeto.";
+    // Verifica se o botão de upload de relatório foi pressionado
+    if (isset($_POST['upload_relatorio'])) {
+        $nome_projeto = $_POST['projeto'];
+        $nome_setor = $_POST['setor'];
+
+        // Define o caminho para a pasta do setor
+        $caminho_setor = 'projetos/' . $nome_projeto . '/' . $nome_setor . '/';
+
+        // Verifica se o diretório do setor existe
+        if (file_exists($caminho_setor)) {
+            // Define o caminho completo para o arquivo de relatório
+            $caminho_relatorio = $caminho_setor . $_FILES['relatorio']['name'];
+
+            // Move o arquivo de relatório para o diretório do setor
+            move_uploaded_file($_FILES['relatorio']['tmp_name'], $caminho_relatorio);
+            echo "Relatório enviado com sucesso para o setor '$nome_setor' do projeto '$nome_projeto'.";
+        } else {
+            echo "O setor '$nome_setor' não existe no projeto '$nome_projeto'.";
+        }
     }
 }
+      // Função para obter a lista de projetos e setores
+function obterProjetosSetores() {
+    $projetosSetores = array();
 
-function obterProjetos() {
-    // Simulação: substitua isso com lógica real para obter os projetos
-    return ['uploads'];
+    // Obtém todos os projetos no diretório atual
+    $projetos = glob('*', GLOB_ONLYDIR);
+
+    foreach ($projetos as $projeto) {
+        // Para cada projeto, obtém os setores no diretório do projeto
+        $setores = glob($projeto . '/*', GLOB_ONLYDIR);
+        $projetosSetores[$projeto] = $setores;
+    }
+
+    return $projetosSetores;
 }
-var_dump 'arquios/';
+
+// Verifica se o formulário foi enviado
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Lógica de gerenciamento adicional pode ser adicionada aqui conforme necessário
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Pastas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        #gerenciador {
-            width: 300px;
-            margin: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-
-        #pastas {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .pasta {
-            cursor: pointer;
-            margin-bottom: 5px;
-        }
-
-        .pasta:hover {
-            background-color: #f0f0f0;
-        }
-
-        #conteudo-pasta {
-            margin-top: 10px;
-            display: none;
-        }
-    </style>
-</head>
-<body>
+    <title>Sistema de Projetos</title>
 </head>
 <body>
 
-<div>
-    <h2>Formulário de Upload de Relatórios</h2>
+<h1>Sistema de Projetos</h1>
 
-    <form action="projetos.php" method="post" enctype="multipart/form-data">
-        <label for="projeto_nome">Nome do Projeto:</label>
-        <input type="text"  name="projeto_nome">
-            <?php
-            $projetos = obterProjetos();
-            foreach ($projetos as $projeto) {
-                echo "<option value=\"$projeto\">$projeto</option>";
-            }
-            ?>
-        </select>
-        <br>
-        <label for="arquivo">Selecione um arquivo PDF:</label>
-        <input type="file" name="arquivo" accept=".pdf" required>
-        <br>
-        <input type="submit" value="Enviar Relatório">
-    </form>
-</div>
+<!-- Formulário para criar projeto -->
+<form method="post" action="">
+    <label for="nome_projeto">Nome do Projeto:</label>
+    <input type="text" name="nome_projeto" required>
+    <button type="submit" name="criar_projeto">Criar Projeto</button>
+</form>
 
+<!-- Formulário para adicionar setor -->
+<form method="post" action="">
+    <label for="projeto">Projeto:</label>
+    <input type="text" name="projeto" required>
+    <label for="nome_setor">Nome do Setor:</label>
+    <input type="text" name="nome_setor" required>
+    <button type="submit" name="adicionar_setor">Adicionar Setor</button>
+</form>
+
+<!-- Formulário para fazer upload de relatório -->
+<form method="post" action="" enctype="multipart/form-data">
+    <label for="projeto_relatorio">Projeto:</label>
+    <input type="text" name="projeto" required>
+    <label for="setor_relatorio">Setor:</label>
+    <input type="text" name="setor" required>
+    <label for="relatorio">Relatório:</label>
+    <input type="file" name="relatorio" required>
+    <button type="submit" name="upload_relatorio">Enviar Relatório</button>
+</form>
+<h1>Gerenciamento de Projetos</h1>
+
+<!-- Lista de Projetos e Setores -->
+<?php
+$projetosSetores = obterProjetosSetores();
+
+foreach ($projetosSetores as $projeto => $setores) {
+    echo "<h2>Projeto: $projeto</h2>";
+
+    if (empty($setores)) {
+        echo "<p>Nenhum setor encontrado para este projeto.</p>";
+    } else {
+        echo "<ul>";
+        foreach ($setores as $setor) {
+            echo "<li>Setor: $setor</li>";
+        }
+        echo "</ul>";
+    }
+}
+?>
 
 </body>
 </html>
