@@ -60,7 +60,10 @@ if(!empty($dados["entrar"])){
 
         <div>
         <label for="perfil">Perfil:</label>
-        <input type="text" id="perfil" name="perfil" required>
+        <select name = "perfil">
+            <Option>funcionario</Option>
+            <option>gestor</option>
+        </select required><br><br>
         </div>
 
         <div>
