@@ -16,17 +16,46 @@ if (isset($_GET['relatorio']) && is_string($_GET['relatorio'])) {
     // Verificar se o identificador do relatório existe na sessão
     if (isset($_SESSION['relatorios'][$relatorioId])) {
         $relatorio = json_decode($_SESSION['relatorios'][$relatorioId], true);
-        gerarEDownloadPDF($relatorio);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Verificar se o formulário foi enviado
+            $nomeArquivo = isset($_POST['nome_arquivo']) ? $_POST['nome_arquivo'] : 'relatorio.pdf';
+            gerarEDownloadPDF($relatorio, $nomeArquivo);
+        } else {
+            // Exibir formulário para o usuário digitar o nome do arquivo
+            exibirFormulario();
+        }
     } else {
         echo '<p>Relatório não encontrado.</p>';
-        exit(); // Encerre a execução para evitar a exibição do restante da página
+        exit();
     }
 } else {
     echo '<p>Parâmetro de relatório inválido.</p>';
-    exit(); // Encerre a execução para evitar a exibição do restante da página
+    exit();
 }
 
-function gerarEDownloadPDF($relatorio) {
+function exibirFormulario() {
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Download do Relatório</title>
+    </head>
+    <body>
+        <h1>Digite o nome do arquivo:</h1>
+        <form method="post">
+            <label for="nome_arquivo">Nome do Arquivo:</label>
+            <input type="text" id="nome_arquivo" name="nome_arquivo" required>
+            <button type="submit">Baixar Relatório</button>
+        </form>
+    </body>
+    </html>
+    <?php
+    exit();
+}
+
+function gerarEDownloadPDF($relatorio, $nomeArquivo) {
     $options = new Options();
     $options->set('isHtml5ParserEnabled', true);
     $options->set('isPhpEnabled', true);
@@ -40,9 +69,6 @@ function gerarEDownloadPDF($relatorio) {
 
     // Renderizar o PDF (saída)
     $dompdf->render();
-
-    // Nome do arquivo PDF a ser gerado
-    $nomeArquivo = 'relatorio.pdf';
 
     // Definir cabeçalhos para realizar o download automático
     header('Content-Type: application/pdf');

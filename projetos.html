@@ -1,0 +1,42 @@
+<?php include 'projj.php';?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Projetos</title>
+</head>
+<body>
+
+<h1>Sistema de Projetos</h1>
+
+<!-- Formulário para criar projeto -->
+<form method="post" action="">
+    <label for="nome_projeto">Nome do Projeto:</label>
+    <input type="text" name="nome_projeto" required>
+    <button type="submit" name="criar_projeto">Criar Projeto</button>
+</form>
+
+<!-- Formulário para adicionar setor -->
+<form method="post" action="">
+    <label for="projeto">Projeto:</label>
+    <input type="text" name="projeto" required>
+    <label for="nome_setor">Nome do Setor:</label>
+    <input type="text" name="nome_setor" required>
+    <button type="submit" name="adicionar_setor">Adicionar Setor</button>
+</form>
+
+<!-- Formulário para fazer upload de relatório -->
+<form method="post" action="" enctype="multipart/form-data">
+    <label for="projeto_relatorio">Projeto:</label>
+    <input type="text" name="projeto" required>
+    <label for="setor_relatorio">Setor:</label>
+    <input type="text" name="setor" required>
+    <label for="relatorio">Relatório:</label>
+    <input type="file" name="relatorio" required>
+    <button type="submit" name="upload_relatorio">Enviar Relatório</button>
+</form>
+
+
+</body>
+</html>
