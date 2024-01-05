@@ -1,8 +1,8 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_relatorio"])) {
     // Verifica se o projeto e o setor foram fornecidos
-    $projeto = $_POST["projeto"];
-    $setor = $_POST["setor"];
+    $projeto = $_POST["projeto_upload"];
+    $setor = $_POST["setor_upload"];
 
     if (empty($projeto) || empty($setor)) {
         echo "Por favor, forneça o projeto e o setor.";

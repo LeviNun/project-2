@@ -69,6 +69,31 @@ function obterProjetosSetores() {
 
     return $projetosSetores;
 }
+function obterSetores($projeto) {
+    // Caminho para o diretório local
+    $caminho = 'projetos/' . $projeto;
+
+    // Verifica se o diretório existe
+    if (is_dir($caminho)) {
+        // Lê os diretórios dentro do caminho especificado
+        $pastas = scandir($caminho);
+
+        // Remove os diretórios "." e ".."
+        $setores = array_diff($pastas, array('..', '.'));
+
+        return $setores;
+    } else {
+        return [];
+    }
+}
+
+if(isset($_POST['projeto'])) {
+    $projetoSelecionado = $_POST['projeto'];
+    $setores = obterSetores($projetoSelecionado);
+    echo implode(',', $setores);
+    exit;
+}
+
 
 // Verifica se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
