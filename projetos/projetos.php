@@ -1,4 +1,8 @@
-<?php include 'projj.php';?>
+<?php 
+include 'projj.php';
+include 'bd_conectar.php'
+?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -72,12 +76,59 @@
         }
         ?>
     </select>
+
+
     <label for="setor_upload">Setor:</label>
     <select name="setor_upload" id="setor_upload"></select>
     <label for="arquivo">Selecione o arquivo:</label>
     <input type="file" name="arquivo" id="arquivo" required> 
-    <button type="submit" name="upload_relatorio">Enviar Relatório</button>
+    <button type="submit" name="upload_relatorio">Enviar Relatório</button> <br> <br>
+    
 </form>
+<form method = "GET">
+    <label for="LabelBuscar">Adicionar funcionarios </label>
+    <input type="text" name = "busca" placeholder = "adicione funcionarios">
+    <button type="submit" name="buttonBuscar" > Buscar funcionario </button> <br>
+</form>
+        
+<table border= "1">
+    <tr>
+        <th>Nome</th> <br>
+    </tr>
+    <?php
+        if (!isset($_GET['busca'])) {
+            ?>
+        <tr>
+            <td colspan="3">Digite algo para pesquisar...</td>
+        </tr>
+        <?php
+        } else {
+            $pesquisa = $mysqli->real_escape_string($_GET['busca']);
+            $sql_code = "SELECT * 
+                FROM login 
+                WHERE nome LIKE '%$pesquisa%'";
+            $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error); 
+            
+            if ($sql_query->num_rows == 0) {
+                ?>
+            <tr>
+                <td colspan="1">Nenhum resultado encontrado...</td>
+            </tr>
+            <?php
+            } else {
+                while($dados = $sql_query->fetch_assoc()) {
+                    ?>
+                    <tr>
+                        <td><?php echo $dados['nome']; ?></td> 
+                    </tr>
+                    <?php
+                }
+            }
+            ?>
+        <?php
+        } ?>
+   
+</table>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
