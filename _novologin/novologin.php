@@ -68,7 +68,7 @@ if(!empty($dados["entrar"])){
 
         <div>
         <i class="bi bi-eye-fill" id="btn-senha" onclick="mostrarSenha()"></i>
-        <a class = "cancelar" href="..\login/login.php">Cancelar</a>
+        <a class = "cancelar" href="..\_telaadm/telaadm.php">Cancelar</a>
         <input class ="button" type="submit" name="entrar" value="entrar">
         </div>
         
