@@ -2,7 +2,7 @@
 $dados= filter_input_array(INPUT_POST,FILTER_DEFAULT);
 if(!empty($dados["entrar"])){
    if(!empty($dados["login"]) && !empty($dados["senha"])){
-    if($dados["login"] == "adm" && $dados["senha"] == "adm846552."){
+    if($dados["login"] == "adm" && $dados["senha"] == "adm1234"){
         header("Location:..\_novologin/novologin.php");
     }else{
         require_once "bd_Login.php";
