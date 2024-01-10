@@ -85,9 +85,10 @@ include 'bd_conectar.php'
     <button type="submit" name="upload_relatorio">Enviar Relatório</button> <br> <br>
     
 </form>
-<form method = "GET">
+<form method = "POST">
     <label for="LabelBuscar">Adicionar funcionarios </label>
     <input type="text" name = "busca" placeholder = "adicione funcionarios">
+    <input type="text" name = "msg" placeholder = "mensagem">
     <button type="submit" name="buttonBuscar" > Buscar funcionario </button> <br>
 </form>
         
@@ -96,39 +97,85 @@ include 'bd_conectar.php'
         <th>Nome</th> <br>
     </tr>
     <?php
-        if (!isset($_GET['busca'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (!isset($_POST['busca'])) {
             ?>
         <tr>
             <td colspan="3">Digite algo para pesquisar...</td>
         </tr>
         <?php
         } else {
-            $pesquisa = $mysqli->real_escape_string($_GET['busca']);
-            $sql_code = "SELECT * 
-                FROM login 
-                WHERE nome LIKE '%$pesquisa%'";
-            $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error); 
-            
-            if ($sql_query->num_rows == 0) {
+             session_start();
+        $cpf=$_SESSION['login'];
+        $sqlii = "SELECT * FROM login WHERE cpf='$cpf'";
+        $pesquisa = $mysqli->real_escape_string($_POST['busca']);
+        $mensagenss =$_POST['msg'];
+        $sql_queryy = $mysqli->query($sqlii) or die("ERRO ao consultar! " . $mysqli->error); 
+
+        $sql_code = "SELECT * 
+            FROM login 
+            WHERE nome ='$pesquisa'";
+        $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error); 
+
+        if ($sql_query->num_rows == 0) {
                 ?>
             <tr>
-                <td colspan="1">Nenhum resultado encontrado...</td>
+                <td colspan="1">Nenhum resultado encontrado...</td> <br> <br>
             </tr>
             <?php
             } else {
-                while($dados = $sql_query->fetch_assoc()) {
+                $dadospara = $sql_query->fetch_assoc();
+                $dadosde = $sql_queryy->fetch_assoc();
+                $dataAtual = new DateTime();
+                $nomede = $dadosde['nome'];
+                $nomepara =$dadospara['nome'];
+                $mensagem = $mensagenss;
+                $data = $dataAtual->format('d/m/Y');
+                $sql_menss = " INSERT INTO notatividades(de, para, projeto, datanot) VALUES ('$nomede','$nomepara','$mensagem','$data')";
+                $sql_mens = $mysqli->query($sql_menss) or die("ERRO ao consultar! " . $mysqli->error); 
+
+                while($dadospara = $sql_query->fetch_assoc()) {
+                   
                     ?>
                     <tr>
-                        <td><?php echo $dados['nome']; ?></td> 
+                        <td><?php echo $dadospara['nome']; ?></td> 
                     </tr>
                     <?php
                 }
+
+                while($dadosde = $sql_queryy->fetch_assoc()) {
+                   
+                    ?>
+                    <tr>
+                        <td><?php echo $dadosde['nome']; ?></td> 
+                    </tr>
+                    <?php
+                }
+                    
             }
+        }
+       
+        }else{
+            ?>
+            <h1><?php echo"dweiofwhfeou"?></h1>
+            <?php
+        }
             ?>
         <?php
-        } ?>
+        //} ?>
    
 </table>
+
+<!-- testando notificação -->
+<form method = "POST">
+    <label for="LabelBuscar">Adicionar funcionarios </label>
+    <input type="text" name = "buscar" placeholder = "mandar para ?">
+    <input type="text" name = "buscar1" placeholder = "mensagem">
+    <button type="submit" name="buttonBuscar" > Buscar funcionario </button> <br>
+</form>
+
+
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
