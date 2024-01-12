@@ -3,12 +3,12 @@ include 'projj.php';
 include 'bd_conectar.php'
 ?>
 
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Sistema de Projetos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 
@@ -53,6 +53,7 @@ include 'bd_conectar.php'
 
 <!-- Formulário para fazer upload de relatório -->
 <form method="post" action="upload.php" enctype="multipart/form-data">
+
     <label for="projeto_upload">Escolha um projeto:</label>
     <select name="projeto_upload" id="projeto_upload">
         <?php
@@ -85,50 +86,65 @@ include 'bd_conectar.php'
     <button type="submit" name="upload_relatorio">Enviar Relatório</button> <br> <br>
     
 </form>
-<form method = "GET">
+<form method = "POST">
     <label for="LabelBuscar">Adicionar funcionarios </label>
-    <input type="text" name = "busca" placeholder = "adicione funcionarios">
+    <input id = "busca" type="text" name = "busca" placeholder = "adicione funcionarios" onkeyup ="carregar_colaboradores(this.value)">
+    <span id = "resultado_pesquisa"></span>
+    <input type="text" name = "msg" placeholder = "mensagem">
     <button type="submit" name="buttonBuscar" > Buscar funcionario </button> <br>
 </form>
-        
-<table border= "1">
-    <tr>
-        <th>Nome</th> <br>
-    </tr>
-    <?php
-        if (!isset($_GET['busca'])) {
-            ?>
-        <tr>
-            <td colspan="3">Digite algo para pesquisar...</td>
-        </tr>
-        <?php
+ 
+
+<?php
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (!isset($_POST['busca'])) {
+    
         } else {
-            $pesquisa = $mysqli->real_escape_string($_GET['busca']);
-            $sql_code = "SELECT * 
-                FROM login 
-                WHERE nome LIKE '%$pesquisa%'";
-            $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error); 
-            
-            if ($sql_query->num_rows == 0) {
-                ?>
-            <tr>
-                <td colspan="1">Nenhum resultado encontrado...</td>
-            </tr>
-            <?php
+             session_start();
+        $cpf=$_SESSION['login'];
+        $sqlii = "SELECT * FROM login WHERE cpf='$cpf'";
+        $pesquisa = $mysqli->real_escape_string($_POST['busca']);
+        $mensagenss =$_POST['msg'];
+        $sql_queryy = $mysqli->query($sqlii) or die("ERRO ao consultar! " . $mysqli->error); 
+
+        $sql_code = "SELECT * 
+            FROM login 
+            WHERE nome ='$pesquisa'";
+        $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error); 
+
+        if ($sql_query->num_rows == 0) {
+             
             } else {
-                while($dados = $sql_query->fetch_assoc()) {
-                    ?>
-                    <tr>
-                        <td><?php echo $dados['nome']; ?></td> 
-                    </tr>
-                    <?php
+                $dadospara = $sql_query->fetch_assoc();
+                $dadosde = $sql_queryy->fetch_assoc();
+                $dataAtual = new DateTime();
+                $nomede = $dadosde['cpf'];
+                $nomepara =$dadospara['cpf'];
+                $mensagem = $mensagenss;
+                $data = $dataAtual->format('d/m/Y');
+                $sql_menss = " INSERT INTO notatividades(de, para, projeto, datanot) VALUES ('$nomede','$nomepara','$mensagem','$data')";
+                $sql_mens = $mysqli->query($sql_menss) or die("ERRO ao consultar! " . $mysqli->error); 
+
+                while($dadospara = $sql_query->fetch_assoc()) {
+                   
+        
                 }
             }
-            ?>
-        <?php
-        } ?>
-   
-</table>
+        }
+       
+        }else{
+            
+        }
+         
+        //} ?>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<script src="projeto.js";>
+    
+</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

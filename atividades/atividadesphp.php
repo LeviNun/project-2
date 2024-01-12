@@ -1,21 +1,5 @@
 <?php
-include "bd_conectar.php"
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<form method = "POST">
-    <label for="LabelBuscar">Adicionar funcionarios </label>
-    <input type="text" name = "busca" placeholder = "adicione funcionarios">
-    <label for="mostrar"> </label>
-</form>
-<?php
+include "bd_conectar.php";
 
 if (!isset($_POST['busca'])) {
     session_start();
@@ -36,5 +20,3 @@ if (!isset($_POST['busca'])) {
     }
 }
 ?>
-</body>
-</html>
