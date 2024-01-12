@@ -88,6 +88,7 @@ include 'bd_conectar.php'
 </form>
 <form method = "POST">
     <label for="LabelBuscar">Adicionar funcionarios </label>
+
     <input id = "busca" type="text" name = "busca" placeholder = "adicione funcionarios" onkeyup ="carregar_colaboradores(this.value)">
     <span id = "resultado_pesquisa"></span>
     <input type="text" name = "msg" placeholder = "mensagem">
@@ -100,6 +101,25 @@ include 'bd_conectar.php'
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!isset($_POST['busca'])) {
     
+
+    <input type="text" name = "busca" placeholder = "adicione funcionarios">
+    <input type="text" name = "msg" placeholder = "mensagem">
+    <button type="submit" name="buttonBuscar" > Buscar funcionario </button> <br>
+</form>
+        
+<table border= "1">
+    <tr>
+        <th>Nome</th> <br>
+    </tr>
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (!isset($_POST['busca'])) {
+            ?>
+        <tr>
+            <td colspan="3">Digite algo para pesquisar...</td>
+        </tr>
+        <?php
+
         } else {
              session_start();
         $cpf=$_SESSION['login'];
@@ -114,13 +134,26 @@ include 'bd_conectar.php'
         $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error); 
 
         if ($sql_query->num_rows == 0) {
+
              
+
+                ?>
+            <tr>
+                <td colspan="1">Nenhum resultado encontrado...</td> <br> <br>
+            </tr>
+            <?php
+
             } else {
                 $dadospara = $sql_query->fetch_assoc();
                 $dadosde = $sql_queryy->fetch_assoc();
                 $dataAtual = new DateTime();
+
                 $nomede = $dadosde['cpf'];
                 $nomepara =$dadospara['cpf'];
+
+                $nomede = $dadosde['nome'];
+                $nomepara =$dadospara['nome'];
+
                 $mensagem = $mensagenss;
                 $data = $dataAtual->format('d/m/Y');
                 $sql_menss = " INSERT INTO notatividades(de, para, projeto, datanot) VALUES ('$nomede','$nomepara','$mensagem','$data')";
@@ -130,6 +163,16 @@ include 'bd_conectar.php'
                    
         
                 }
+
+                while($dadosde = $sql_queryy->fetch_assoc()) {
+                   
+                    ?>
+                    <tr>
+                        <td><?php echo $dadosde['nome']; ?></td> 
+                    </tr>
+                    <?php
+                }
+                    
             }
         }
        
@@ -145,6 +188,17 @@ include 'bd_conectar.php'
 <script src="projeto.js";>
     
 </script>
+
+<!-- testando notificação -->
+<form method = "POST">
+    <label for="LabelBuscar">Adicionar funcionarios </label>
+    <input type="text" name = "buscar" placeholder = "mandar para ?">
+    <input type="text" name = "buscar1" placeholder = "mensagem">
+    <button type="submit" name="buttonBuscar" > Buscar funcionario </button> <br>
+</form>
+
+
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

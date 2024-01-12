@@ -14,6 +14,8 @@ include "bd_conectar.php"
     <label for="LabelBuscar">Adicionar funcionarios </label>
     <input type="text" name = "busca" placeholder = "adicione funcionarios">
     <label for="mostrar"> </label>
+    <button type="submit" name="buttonBuscar" > Buscar funcionario </button> <br>
+
 </form>
 <?php
 
@@ -23,7 +25,11 @@ if (!isset($_POST['busca'])) {
     $sqlii = "SELECT * FROM login WHERE cpf='$cpf'";
     $sql_queryy = $mysqli->query($sqlii) or die("ERRO ao consultar! " . $mysqli->error); 
     $dadosde = $sql_queryy->fetch_assoc();
+
     $nomede = $dadosde['cpf'];
+
+    $nomede = $dadosde['nome'];
+
     $chavesql = "SELECT * FROM notatividades WHERE para='$nomede'";
     $sql_query = $mysqli->query($chavesql) or die("ERRO ao consultar! " . $mysqli->error); 
     
