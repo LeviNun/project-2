@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_relatorio"])) {
     } else {
 
         // Cria a pasta do projeto se não existir
-        $caminho_projeto = 'projetos/' . DIRECTORY_SEPARATOR . $projeto . DIRECTORY_SEPARATOR . $setor;
+        $caminho_projeto = 'projetos/' . DIRECTORY_SEPARATOR . $projeto  .'/' . DIRECTORY_SEPARATOR . $setor;
         if (!file_exists($caminho_projeto)) {
             mkdir($caminho_projeto, 0777, true);
         }
@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_relatorio"])) {
         // Move o arquivo para a pasta do projeto
         $arquivo_temporario = $_FILES["arquivo"]["tmp_name"];
         $nome_arquivo = basename($_FILES["arquivo"]["name"]);
-        $caminho_destino = $caminho_projeto . DIRECTORY_SEPARATOR . $nome_arquivo;
+        $caminho_destino = $caminho_projeto . '/' . $nome_arquivo;
 
         if (move_uploaded_file($arquivo_temporario, $caminho_destino)) {
 

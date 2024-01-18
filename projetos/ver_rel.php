@@ -67,6 +67,7 @@
             echo "</ul>";
         } else {
             echo "Nenhum relatório encontrado para o projeto selecionado.";
+            
         }
     }
 
