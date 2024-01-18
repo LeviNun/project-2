@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17/01/2024 às 13:05
+-- Tempo de geração: 18/01/2024 às 11:29
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -60,6 +60,7 @@ INSERT INTO `login` (`cpf`, `nome`, `login`, `senha`, `status`, `perfil`) VALUES
 ('235333535', 'Melb lau', '55', '55', 'ativo', 'funcionario'),
 ('32444242', 'vitor hugor ', '45', '45', 'ativo', 'funcionario'),
 ('37322288812', 'buuh´ce-tah', '123', '123', 'ativo', 'funcionario'),
+('4444', 'rafae', '44', '44', 'ativo', 'gestor'),
 ('45', 'vitor hugor ', '45', '45', 'ativo', 'funcionario'),
 ('8465', 'Rafael Pinho de Sanatna', '8465', '8465', 'ativo', 'funcionario');
 
@@ -100,7 +101,19 @@ INSERT INTO `notatividades` (`id`, `de`, `para`, `projeto`, `datanot`) VALUES
 (29, 'levi', 'zibora', '', '0000-00-00'),
 (30, 'levi', 'zibora', 'Gosto de piza', '0000-00-00'),
 (31, 'levi', 'zibora', 'Tomar no cu', '0000-00-00'),
-(32, '222', '222', 'va tomar no cukkkkkkkkkk', '0000-00-00');
+(32, '222', '222', 'va tomar no cukkkkkkkkkk', '0000-00-00'),
+(33, '', '1234', 'w11ww', '0000-00-00'),
+(34, '003', '1234', '3fre', '0000-00-00'),
+(35, '003', '1234', 'y56y6u', '0000-00-00'),
+(36, '', '1234', 'wefwf', '0000-00-00'),
+(37, '', '1234', '4444', '0000-00-00'),
+(38, '', '1234', '4444', '0000-00-00'),
+(39, '', '1234', '09-=80u0olk', '0000-00-00'),
+(40, '4444', '1234', '4444', '0000-00-00'),
+(41, '4444', '1234', 'htrhhe', '0000-00-00'),
+(42, '4444', '1234', 'htrhhe', '0000-00-00'),
+(43, '4444', '1234', 'htrhhe', '0000-00-00'),
+(44, '4444', '1234', 'htrhhe', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -111,18 +124,21 @@ INSERT INTO `notatividades` (`id`, `de`, `para`, `projeto`, `datanot`) VALUES
 CREATE TABLE `projetos` (
   `id_projeto` int(11) NOT NULL,
   `nome_projeto` varchar(255) NOT NULL,
-  `descricao_projeto` text DEFAULT NULL,
-  `caminho_projeto` varchar(255) NOT NULL
+  `login_criador` varchar(255) NOT NULL,
+  `caminho_projeto` varchar(255) NOT NULL,
+  `objetivo` varchar(400) NOT NULL,
+  `dt_criada` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `projetos`
 --
 
-INSERT INTO `projetos` (`id_projeto`, `nome_projeto`, `descricao_projeto`, `caminho_projeto`) VALUES
-(6, 'levi', NULL, '..projetos/projetos/'),
-(7, 'jujuba', NULL, '..projetos/projetos/'),
-(9, 'cucabeludo', NULL, '..projetos/projetos/');
+INSERT INTO `projetos` (`id_projeto`, `nome_projeto`, `login_criador`, `caminho_projeto`, `objetivo`, `dt_criada`) VALUES
+(16, 'gis', '44', '..projetos/projetos/', 'criar tu ', '2024-01-17 17:28:58'),
+(17, 'ytur', '44', '..projetos/projetos/', 'criar tu r34', '2024-01-17 17:31:05'),
+(18, 'corre', '44', '..projetos/projetos/', 'criar tu ', '2024-01-17 18:04:35'),
+(19, 'corredor', '44', '..projetos/projetos/', 'criar tu ', '2024-01-17 18:16:10');
 
 -- --------------------------------------------------------
 
@@ -133,6 +149,7 @@ INSERT INTO `projetos` (`id_projeto`, `nome_projeto`, `descricao_projeto`, `cami
 CREATE TABLE `relatorios` (
   `id_relatorio` int(11) NOT NULL,
   `id_projeto` int(11) DEFAULT NULL,
+  `login_remetente` varchar(255) NOT NULL,
   `nome_relatorio` varchar(255) NOT NULL,
   `caminho_pdf` varchar(255) NOT NULL,
   `data_upload` timestamp NOT NULL DEFAULT current_timestamp()
@@ -142,10 +159,10 @@ CREATE TABLE `relatorios` (
 -- Despejando dados para a tabela `relatorios`
 --
 
-INSERT INTO `relatorios` (`id_relatorio`, `id_projeto`, `nome_relatorio`, `caminho_pdf`, `data_upload`) VALUES
-(3, 6, 'relatorio.pdf', 'projetos/levichico bento\relatorio.pdf', '2024-01-17 11:47:24'),
-(4, 7, 'Flamengo (1).pdf', 'projetos/jujubameucaFlamengo (1).pdf', '2024-01-17 11:55:30'),
-(5, 6, 'Flamengo (1).pdf', 'projetos/levichico bentoFlamengo (1).pdf', '2024-01-17 12:02:44');
+INSERT INTO `relatorios` (`id_relatorio`, `id_projeto`, `login_remetente`, `nome_relatorio`, `caminho_pdf`, `data_upload`) VALUES
+(11, 19, '44', 'relatorio (7).pdf', 'projetos/corredorcvt\relatorio (7).pdf', '2024-01-17 14:20:40'),
+(12, 19, '44', 'atividades (5).txt', 'projetos/corredorcvtatividades (5).txt', '2024-01-18 10:28:23'),
+(13, 19, '003', 'tt32t.pdf', 'projetos/corredorcvt	t32t.pdf', '2024-01-18 10:29:02');
 
 --
 -- Índices para tabelas despejadas
@@ -184,19 +201,19 @@ ALTER TABLE `relatorios`
 -- AUTO_INCREMENT de tabela `notatividades`
 --
 ALTER TABLE `notatividades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de tabela `projetos`
 --
 ALTER TABLE `projetos`
-  MODIFY `id_projeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_projeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `relatorios`
 --
 ALTER TABLE `relatorios`
-  MODIFY `id_relatorio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_relatorio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restrições para tabelas despejadas
