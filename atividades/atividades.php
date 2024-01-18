@@ -19,7 +19,7 @@ include "bd_conectar.php"
 
 if (!isset($_POST['busca'])) {
     session_start();
-    $cpf=$_SESSION['login'];
+    $cpf=$_SESSION['cpf'];
     $sqlii = "SELECT * FROM login WHERE cpf='$cpf'";
     $sql_queryy = $mysqli->query($sqlii) or die("ERRO ao consultar! " . $mysqli->error); 
     $dadosde = $sql_queryy->fetch_assoc();

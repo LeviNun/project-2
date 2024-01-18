@@ -29,7 +29,8 @@ public function login($login,$senha){
             // so um registro
             $dados= $sql->fetch(PDO::FETCH_ASSOC);
             session_start();
-            $_SESSION['login']= $dados['cpf'];
+            $_SESSION['cpf']= $dados['cpf'];
+            $_SESSION['login']= $dados['login'];
             header("Location:..\menu/menu.php");
         }
         else{

@@ -1,4 +1,5 @@
 <?php
+session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_relatorio"])) {
     // Verifica se o projeto e o setor foram fornecidos
     $projeto = $_POST["projeto_upload"];
@@ -39,11 +40,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_relatorio"])) {
                 // Continue com a inserção do relatório
                 $nome_relatorio = $nome_arquivo;
                 $caminho_pdf = $caminho_destino;
-
-                $sql = "INSERT INTO Relatorios (id_projeto, nome_relatorio, caminho_pdf) VALUES ('$id_projeto', '$nome_relatorio', '$caminho_pdf')";
+                $login_remetente = $_SESSION["login"];
+                $sql = "INSERT INTO Relatorios (id_projeto, nome_relatorio, login_remetente, caminho_pdf)
+                 VALUES ('$id_projeto', '$nome_relatorio', '$login_remetente', '$caminho_pdf')";
 
                 if ($conexao->query($sql) === TRUE) {
-                    echo "Relatório enviado com sucesso para o projeto $projeto, setor $setor e registrado no banco de dados.";
+                    echo "oii login $login_remetente enviado com sucesso para o projeto $projeto, setor $setor e registrado no banco de dados.";
                 } else {
                     echo "Erro ao enviar o relatório e registrar no banco de dados: " . $conexao->error;
                 }

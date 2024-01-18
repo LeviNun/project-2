@@ -1,16 +1,22 @@
 <?php 
 include 'projj.php';
 include 'bd_conectar.php';
+session_start(); 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
     // Processar o formulário para criar um novo projeto
     $nome_projeto = $mysqli->real_escape_string($_POST['nome_projeto']);
-    $caminho_projeto = '..\projetos/projetos/'; // Substitua pelo caminho real do seu diretório no servidor
-
+    $objetivo = $mysqli->real_escape_string($_POST['objetivo']);
+    $caminho_projeto = '..\projetos/projetos/';
+    $login_criador = $_SESSION['login'];
+    $data = date("Y-m-d H:i:s");
+     // Substitua pelo caminho real do seu diretório    no servidor
     // Insira os dados do novo projeto no banco de dados
-    $sql_inserir_projeto = "INSERT INTO projetos (nome_projeto, caminho_projeto) VALUES ('$nome_projeto', '$caminho_projeto')";
+    $sql_inserir_projeto = "INSERT INTO projetos
+    (nome_projeto, login_criador, caminho_projeto, objetivo,dt_criada)
+    VALUES ('$nome_projeto', '$login_criador', '$caminho_projeto', '$objetivo', '$data')";
 
-    if ($mysqli->query($sql_inserir_projeto)) {
+    if ($mysqli->query($sql_inserir_projeto)) { 
         echo "Projeto criado com sucesso.";
     } else {
         echo "Erro ao criar o projeto: " . $mysqli->error;
@@ -33,6 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
 <form method="post" action="">
     <label for="nome_projeto">Nome do Projeto:</label>
     <input type="text" name="nome_projeto" required>
+    <label for="objetivo">digite o objetivo:</label>
+    <input type="text" name="objetivo" required>
     <button type="submit" name="criar_projeto">Criar Projeto</button>
 </form>
 
@@ -106,52 +114,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
     <input id = "busca" type="text" name = "busca" placeholder = "adicione funcionarios" onkeyup ="carregar_colaboradores(this.value)">
     <span id = "resultado_pesquisa"></span>
     <input type="text" name = "msg" placeholder = "mensagem">
-    <button type="submit" name="buttonBuscar" > Buscar funcionario </button> <br>
+    <input type="submit" name="buttonBuscar" value = "Buscar funcionario"></button> <br>
 </form>
  
+<?php
+$sql = "SELECT id_projeto, nome_projeto, caminho_projeto FROM projetos";
+$result = $mysqli->query($sql);
+
+// Verifica se há resultados
+if ($result->num_rows > 0) {
+    echo '<ul>';
+    // Loop para percorrer os resultados e criar a lista
+    while ($row = $result->fetch_assoc()) {
+        $id_proj = $row["id_projeto"];
+        $caminho = $row["caminho_projeto"];
+        echo '<li><a href="verprojetoscriados.php?id_projeto=' . $id_proj . '&caminho_projeto=' . urlencode($caminho) . '">' . $row["nome_projeto"] . '</a></li>';
+    }
+    echo '</ul>';    
+} else {
+    echo '<p>Nenhum item encontrado no banco de dados.</p>';
+}
+
+// Fecha a conexão com o banco de dados
+?>
 
 <?php
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (!isset($_POST['busca'])) {
-    
-        } else {
-             session_start();
-        $cpf=$_SESSION['login'];
-        $sqlii = "SELECT * FROM login WHERE cpf='$cpf'";
-        $pesquisa = $mysqli->real_escape_string($_POST['busca']);
-        $mensagenss =$_POST['msg'];
-        $sql_queryy = $mysqli->query($sqlii) or die("ERRO ao consultar! " . $mysqli->error); 
+        if (isset($_POST['busca'])) {
+            if (isset($_POST['buttonBuscar'])) {
+                $cpf=$_SESSION['cpf'];
+                $sqlii = "SELECT * FROM login WHERE cpf='$cpf'";
+                $pesquisa = $mysqli->real_escape_string($_POST['busca']);
+                $mensagenss =$_POST['msg'];
+                $sql_queryy = $mysqli->query($sqlii) or die("ERRO ao consultar! " . $mysqli->error); 
 
-        $sql_code = "SELECT * 
-            FROM login 
-            WHERE nome ='$pesquisa'";
-        $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error); 
+                $sql_code = "SELECT * 
+                    FROM login 
+                    WHERE nome ='$pesquisa'";
+                $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error); 
 
-        if ($sql_query->num_rows == 0) {
+                if ($sql_query->num_rows == 0) {
              
-            } else {
-                $dadospara = $sql_query->fetch_assoc();
-                $dadosde = $sql_queryy->fetch_assoc();
-                $dataAtual = new DateTime();
-                $nomede = $dadosde['cpf'];
-                $nomepara =$dadospara['cpf'];
-                $mensagem = $mensagenss;
-                $data = $dataAtual->format('d/m/Y');
-                $sql_menss = " INSERT INTO notatividades(de, para, projeto, datanot) VALUES ('$nomede','$nomepara','$mensagem','$data')";
-                $sql_mens = $mysqli->query($sql_menss) or die("ERRO ao consultar! " . $mysqli->error); 
+                    } else {
+                        $dadospara = $sql_query->fetch_assoc();
+                        $dadosde = $sql_queryy->fetch_assoc();
+                        $dataAtual = new DateTime();
+                        $nomede = $dadosde['cpf'];
+                        $nomepara =$dadospara['cpf'];
+                        $mensagem = $mensagenss;
+                        $data =  date("Y-m-d H:i:s");
+                        $sql_menss = " INSERT INTO notatividades(de, para, projeto, datanot) VALUES ('$nomede','$nomepara','$mensagem','$data')";
+                        $sql_mens = $mysqli->query($sql_menss) or die("ERRO ao consultar! " . $mysqli->error); 
 
-                while($dadospara = $sql_query->fetch_assoc()) {
+                        while($dadospara = $sql_query->fetch_assoc()) {
                    
         
-                }
+                    }
                     
+                }
             }
         }
-       
-        }else{
-            
-        }
+    }
          
         //} ?>
 
