@@ -37,86 +37,18 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Relatório - SergipeTec</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .content {
-            position: relative;
-            width: 80%;
-            max-width: 800px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: left;
-            margin: auto;
-            margin-top: 20px;
-        }
-
-        h1, h2, p {
-            color: #333; /* Cor neutra */
-        }
-
-        h1 {
-            font-size: 50px;
-            margin-bottom: 30px;
-            font-weight: bold; /* Negrito */
-            font-family: 'Times New Roman', serif; /* Fonte diferente, ajuste conforme necessário */
-        }
-
-        h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            font-family: 'Times New Roman', serif; /* Fonte diferente, ajuste conforme necessário */
-        }
-
-        p {
-            font-size: 20px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        nav {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #333;
-            overflow: hidden;
-            text-align: center;
-            padding: 10px;
-        }
-
-        nav a {
-            display: inline-block;
-            color: white;
-            padding: 10px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #555;
-        }
-    </style>
+    <link rel="stylesheet" href="pasta_de_estilos/mostrar.css">
 </head>
-<body>
-    <nav>
+<body class="body">
+    <nav class="nav">
         <?php
             // Adicionar link para baixar o relatório
-            echo '<p><a href="download_relatorio.php?relatorio=' . $relatorioId . '">Baixar este relatório</a></p>';
+            echo '<p><a href="download_relatorio.php?relatorio=' . $relatorioId . '" >Baixar este relatório</a></p>';
             // Link para apagar o relatório atual
             echo '<p><a href="mostrar_relatorio.php?acao=apagar&relatorio=' . $relatorioId . '">Apagar este relatório</a></p>';
             // Link para voltar para a página de relatórios
             echo '<p><a href="relatorios.php">Voltar para Relatórios</a></p>';
+            echo '<p><a href="relatorios.php">Enviar relatorio</a></p>';
         ?>
     </nav>
 
@@ -127,26 +59,26 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
         <?php
             // Exibir detalhes do relatório
             if (isset($relatorio['titulo'])) {
-                echo '<h2>' . $relatorio['titulo'] . '</h2>';
+                echo '<h2 class="h2">' . $relatorio['titulo'] . '</h2>';
             }
 
             if (isset($relatorio['observacao'])) {
-                echo '<p><strong>Observação:</strong> ' . $relatorio['observacao'] . '</p>';
+                echo '<p class="p"><strong>Observação:</strong> ' . $relatorio['observacao'] . '</p>';
             }
 
             if (isset($relatorio['metas'])) {
-                echo '<p><strong>Metas:</strong> ' . $relatorio['metas'] . '</p>';
+                echo '<p class="p"><strong>Metas:</strong> ' . $relatorio['metas'] . '</p>';
             }
             
             if (isset($relatorio['comentarios'])) {
-                echo '<p><strong>Comentários:</strong> ' . $relatorio['comentarios'] . '</p>';
+                echo '<p class="p"><strong>Comentários:</strong> ' . $relatorio['comentarios'] . '</p>';
             }
             
             if (isset($relatorio['anexos'])) {
                 echo '<h3>Anexos:</h3>';
                 foreach ($relatorio['anexos'] as $anexo) {
                     // Se $relatorio['anexos'] é uma lista de strings, $anexo será uma string
-                    echo '<p><a href="' . $anexo . '" target="_blank">' . basename($anexo) . '</a></p>';
+                    echo '<p class="p"><a href="' . $anexo . '" target="_blank">' . basename($anexo) . '</a></p>';
                 }
             }
         ?>

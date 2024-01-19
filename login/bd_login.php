@@ -31,6 +31,7 @@ public function login($login,$senha){
             session_start();
             $_SESSION['cpf']= $dados['cpf'];
             $_SESSION['login']= $dados['login'];
+            //$_SESSION['nome']= $dados['nome'];
             header("Location:..\menu/menu.php");
         }
         else{

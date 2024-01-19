@@ -2,7 +2,7 @@
 session_start();
 
 // Verificar se o usuário está logado
-if (!isset($_SESSION['login'])) {
+if (!isset($_SESSION['cpf'])) {
     header("Location: login.php");
     exit();
 }
@@ -45,7 +45,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stylemenu.css">
+    <link rel="stylesheet" href="pasta_de_estilos/stylemenu.css">
     <title>TESTE</title>
 </head>
 <body class = "body">
@@ -66,7 +66,7 @@ try {
     echo '<a id = "ger" href = "..\gerenciaratividades/ger_atividades.php">Gerenciar atividades</a>';
     echo '<a href="..\projetos/projetos.php">Projetos</a>';
     }else if($usuario['perfil'] == 'funcionario'){
-        echo '<a id = "ger" href = "..\atividades/verificar_atividades.php">Atividades</a>';
+        echo '<a id = "ger" href = "..\atividades/atividades.php">Atividades</a>';
         echo '<a href="..\relatorios/relatorios.php">Relatorios</a>';
     }
     ?>

@@ -2,7 +2,7 @@
 session_start();
 
 // Verificar se o usuário está logado
-if (!isset($_SESSION['login'])) {
+if (!isset($_SESSION['cpf'])) {
     header("Location: login.php");
     exit();
 }
@@ -11,7 +11,7 @@ if (!isset($_SESSION['login'])) {
 require_once "bd_conectar.php";
 
 // Obter o login do usuário da sessão
-$login = $_SESSION['login'];
+$cpf = $_SESSION['cpf'];
 
 // Inicializar variável de status
 $status = '';
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status_form'])) {
         $sql = "UPDATE login SET status = :status WHERE cpf = :cpf";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':status', $novoStatus);
-        $stmt->bindParam(':cpf', $login);
+        $stmt->bindParam(':cpf', $cpf);
         $stmt->execute();
 
         $status = 'Status atualizado com sucesso.';

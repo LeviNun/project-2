@@ -25,8 +25,8 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
 ?>
 <?php
 // Verificar se o usuário está logado
-if (!isset($_SESSION['login'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['cpf'])) {
+    header("Location: ..\login/login.php");
     exit();
 }
 
@@ -34,7 +34,7 @@ if (!isset($_SESSION['login'])) {
 require_once "bd_conectar.php";
 
 // Obter o login do usuário da sessão
-$login = $_SESSION['login'];
+$cpf = $_SESSION['cpf'];
 // Consultar o banco de dados para obter informações do usuário
 try {
     $conexao = new Conexao();
@@ -43,7 +43,7 @@ try {
     // Consultar informações do usuário usando o campo de login
     $sql = "SELECT * FROM login WHERE cpf = :cpf";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':cpf', $login);
+    $stmt->bindParam(':cpf', $cpf);
     $stmt->execute();
 
     // Obter os resultados da consulta
