@@ -64,7 +64,7 @@ try {
     <?php
     if($usuario['perfil'] == 'gestor'){
     echo '<a id = "ger" href = "..\gerenciaratividades/ger_atividades.php">Gerenciar atividades</a>';
-    echo '<a href="..\projetos/projetos.php">Projetos</a>';
+    echo '<a href="..\projetos/antes_projetos.php">Projetos</a>';
     }else if($usuario['perfil'] == 'funcionario'){
         echo '<a id = "ger" href = "..\atividades/atividades.php">Atividades</a>';
         echo '<a href="..\relatorios/relatorios.php">Relatorios</a>';

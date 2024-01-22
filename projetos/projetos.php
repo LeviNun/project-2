@@ -109,6 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
     <button type="submit" name="upload_relatorio">Enviar Relatório</button> <br> <br>
     
 </form>
+<!--
 <form method = "POST">
     <label for="LabelBuscar">Adicionar funcionarios </label>
     <input id = "busca" type="text" name = "busca" placeholder = "adicione funcionarios" onkeyup ="carregar_colaboradores(this.value)">
@@ -116,27 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
     <input type="text" name = "msg" placeholder = "mensagem">
     <input type="submit" name="buttonBuscar" value = "Buscar funcionario"></button> <br>
 </form>
- 
-<?php
-$sql = "SELECT id_projeto, nome_projeto, caminho_projeto FROM projetos";
-$result = $mysqli->query($sql);
-
-// Verifica se há resultados
-if ($result->num_rows > 0) {
-    echo '<ul>';
-    // Loop para percorrer os resultados e criar a lista
-    while ($row = $result->fetch_assoc()) {
-        $id_proj = $row["id_projeto"];
-        $caminho = $row["caminho_projeto"];
-        echo '<li><a href="verprojetoscriados.php?id_projeto=' . $id_proj . '&caminho_projeto=' . urlencode($caminho) . '">' . $row["nome_projeto"] . '</a></li>';
-    }
-    echo '</ul>';    
-} else {
-    echo '<p>Nenhum item encontrado no banco de dados.</p>';
-}
-
-// Fecha a conexão com o banco de dados
-?>
+-->
 
 <?php
 

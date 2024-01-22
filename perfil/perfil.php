@@ -126,7 +126,7 @@ try {
     <p><strong>Login:</strong> <?php echo $usuario['login']; ?></p>
     <p><strong>CPF:</strong> <?php echo $usuario['cpf']; ?></p>
     <p><strong>Perfil:</strong> <?php echo $usuario['perfil']; ?></p>
-
+    <p><strong>Perfil:</strong> <?php echo $usuario['setor']; ?></p>
     <!-- Adicionar campo de status -->
     <h3 class="h">Status</h3>
     <div id="statusForm">

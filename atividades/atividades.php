@@ -9,69 +9,9 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pasta_de_estilos/atividades.css">
     <title>Document</title>
 </head>
-<style>
-    .body{
-        margin: 20;
-        font-family: 'Arial', sans-serif;
-        background-color: #f0f0f0;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        margin-left: 20px;
-    }
-    /* Estilo para a caixa de projeto */
-    .project-box {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 15px;  /* Reduzi o padding */
-        margin: 10px;  /* Reduzi a margem */
-        max-width: 300px;  /* Reduzi o tamanho máximo */
-        width: 100%;
-    }
-
-    .project-title {
-        font-size: 20px;  /* Reduzi o tamanho da fonte do título */
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 8px;  /* Reduzi a margem inferior do título */
-    }
-
-    .project-description {
-        font-size: 14px;  /* Reduzi o tamanho da fonte da descrição */
-        color: #666;
-        margin-bottom: 15px;  /* Reduzi a margem inferior da descrição */
-    }
-
-    .project-button {
-        background-color: #4caf50;
-        color: #fff;
-        padding: 8px 12px;  /* Reduzi o padding do botão */
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;  /* Reduzi o tamanho da fonte do botão */
-    }
-
-    .project-button:hover {
-        background-color: #45a049;
-    }
-
-</style>
-<body class ="body">
-<form method = "POST">
-    <div class="project-box">
-        <div class="project-title">Título do Projeto</div>
-        <div class="project-description">Descrição do Projeto vai aqui...</div>
-        <button class="project-button">Detalhes</button>
-    </div>  
-    <label for="LabelBuscar">Adicionar funcionarios </label>
-    <input type="text" name = "busca" placeholder = "adicione funcionarios">
-    <label for="mostrar"> </label>
-</form>
-
 <?php
     $login=$_SESSION['login'];
     $chave_sql="SELECT * FROM col_projeto WHERE login_colaborador='$login'";
@@ -87,9 +27,19 @@ session_start();
                 $nome_projeto =$dadosnome['nome_projeto'];
                 $objetivo=$dadosnome['objetivo'];
                 $caminho=$dadosnome['caminho_projeto'];
-                echo '<li><a href="verprojetoscriados.php?id_projeto=' . $id_projeto . '&caminho_projeto=' . urlencode($caminho) . '">' . $dadosnome["nome_projeto"] . '</a></li>';
+                //  echo '<li><a href="verprojetoscriados.php?id_projeto=' . $id_projeto . '&caminho_projeto=' . urlencode($caminho) . '">' . $dadosnome["nome_projeto"] . '</a></li>';
                 //echo"<h4>$nome_projeto</h4>";
                 //echo"<h5>$objetivo</h5>";
+                
+                echo '<body class="body">
+                <form method="POST">
+                    <div class="project-box">
+                        <div class="project-title">'.$nome_projeto.'</div>
+                        <div class="project-description">Objetivo: '.$objetivo.'</div>
+                        <button class="project-button">Detalhes</button>
+                    </div>  
+                </form>
+                </body>';
             }
         }
         
@@ -105,14 +55,23 @@ session_start();
                 $nome_projeto =$dadosnome['nome_projeto'];
                 $objetivo=$dadosnome['objetivo'];
                 $caminho=$dadosnome['caminho_projeto'];
-                echo '<li><a href="verprojetoscriados.php?id_projeto=' . $id_projeto . '&caminho_projeto=' . urlencode($caminho) . '">' . $dadosnome["nome_projeto"] . '</a></li>';
+                //echo '<li><a href="verprojetoscriados.php?id_projeto=' . $id_projeto . '&caminho_projeto=' . urlencode($caminho) . '">' . $dadosnome["nome_projeto"] . '</a></li>';
                 //echo"<h4>$nome_projeto</h4>";
                 //echo"<h5>$objetivo</h5>";
+                echo '<body class="body">
+                <form method="POST">
+                    <div class="project-box">
+                        <div class="project-title">'.$nome_projeto.'</div>
+                        <div class="project-description">Objetivo: '.$objetivo.'</div>
+                        <button class="project-button">Detalhes</button>
+                    </div>  
+                </form>
+                </body>';
             }
         }
         echo "</div>";
     }else{
-        $text="No momento você não está em nenhum projeto!";
+        $text="<h4>No momento você não está em nenhum projeto!<h4>";
         echo"<h5>$text<h5>";
     }
 /*

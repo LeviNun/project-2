@@ -33,10 +33,16 @@
         </div>
 
         <div>
+        <label for="setor">Setor:</label>
+        <input type="text" id="setor" name="setor" required>
+        </div>
+
+        <div>
         <label for="login">Login:</label>
         <input type="text" id="login" name="login" required>
         </div>
 
+       
         <div>
         <label for="senha">Senha:</label>
         <input type="password" id="senha" name="senha" required><br><br>
@@ -69,7 +75,7 @@ if(!empty($dados["entrar"])){
     $sql_query = $mysqli->query($verifica_sql) or die("ERRO ao consultar! " . $mysqli->error); 
     if ($sql_query->num_rows == 0) {
         $slog = new Novologin();
-        $slog->novologin($dados['login'],$dados['senha'],$dados['cpf'],$dados['nome'],$dados['perfil']);
+        $slog->novologin($dados['login'],$dados['senha'],$dados['cpf'],$dados['nome'],$dados['perfil'], $dados['setor']);
     }else{
         ?><h6><?php echo"Alguem ja usa esse login, ultilize outro por favor";  ?></h6>
         <?php

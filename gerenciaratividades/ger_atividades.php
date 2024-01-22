@@ -44,7 +44,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styleger_atividades.css">
+    <link rel="stylesheet" href="pasta_de_estilos/styleger_atividades.css">
     <title>Gerenciamento de Atividades</title>
 
 </head>

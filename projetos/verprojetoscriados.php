@@ -43,11 +43,12 @@ $resultado_relatorios = $mysqli->query($chave_sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
     <form method="POST">
-        <input id = "busca" type="text" name = "busca" placeholder = "adicione funcionarios" onkeyup ="carregar_colaboradores(this.value)">
+        <input id = "busca" type="text" name = "busca"  autocomplete="off" placeholder = "adicione funcionarios" onkeyup ="carregar_colaboradores(this.value)">
         <span id = "resultado_pesquisa"></span>
         <input type="submit" name="add" value="Adicionar funcionario ao projeto">  
         <input id = "mostrar" style="display: none;" type="text" name = "mostrar" placeholder = "adicione funcionarios">
@@ -57,8 +58,9 @@ $resultado_relatorios = $mysqli->query($chave_sql);
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(isset($_POST["add"])){
             if(isset($_POST["busca"])){
-                if (isset($_POST['mostrar'])) {
+                if (!empty($_POST['mostrar'])) {
                     $login_do_colaborador = $_POST['mostrar'];
+                    
                     $chave_verifica= "SELECT * FROM col_projeto WHERE login_colaborador='$login_do_colaborador' AND id_projeto='$id_projeto'";
                     $verificacao_result = $mysqli->query($chave_verifica);
                     if ($verificacao_result->num_rows > 0) {
@@ -80,6 +82,8 @@ $resultado_relatorios = $mysqli->query($chave_sql);
 
                     }
                 }
+            }else{
+                echo"<h3>Selecione um funcionario para coloca-lo no projeto!</h3>";
             }
         }
     }
