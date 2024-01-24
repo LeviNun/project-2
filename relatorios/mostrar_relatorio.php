@@ -37,6 +37,7 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Relatório - SergipeTec</title>
+<<<<<<< HEAD
     <style>
         body {
             margin: 0;
@@ -125,19 +126,24 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
             background-color: #555;
         }
     </style>
+=======
+    <link rel="stylesheet" href="pasta_de_estilos/mostrar.css">
+>>>>>>> 4d0124dcf69368868606ef6bc2fd08fa9d1cf521
 </head>
-<body>
-    <nav>
+<body class="body">
+    <nav class="nav">
         <?php
             // Adicionar link para baixar o relatório
-            echo '<p><a href="download_relatorio.php?relatorio=' . $relatorioId . '">Baixar este relatório</a></p>';
+            echo '<p><a href="download_relatorio.php?relatorio=' . $relatorioId . '" >Baixar este relatório</a></p>';
             // Link para apagar o relatório atual
             echo '<p><a href="mostrar_relatorio.php?acao=apagar&relatorio=' . $relatorioId . '">Apagar este relatório</a></p>';
             // Link para voltar para a página de relatórios
             echo '<p><a href="relatorios.php">Voltar para Relatórios</a></p>';
+            echo '<p><a href="relatorios.php">Enviar relatorio</a></p>';
         ?>
     </nav>
 
+<<<<<<< HEAD
    
                 <!-- Conteúdo da Página -->
                 <div class="content">
@@ -195,6 +201,37 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
                     }
                    
                     echo '<p><a href="' . $anexo . '" target="_blank">' . basename($anexo) . '</a></p>';
+=======
+    <!-- Conteúdo da Página -->
+    <div class="content">
+        <h1>SergipeTec</h1>
+        <h2>Relatório</h2>
+        <?php
+            // Exibir detalhes do relatório
+            if (isset($relatorio['titulo'])) {
+                echo '<h2 class="h2">' . $relatorio['titulo'] . '</h2>';
+            }
+
+            if (isset($relatorio['observacao'])) {
+                echo '<p class="p"><strong>Observação:</strong> ' . $relatorio['observacao'] . '</p>';
+            }
+
+            if (isset($relatorio['metas'])) {
+                echo '<p class="p"><strong>Metas:</strong> ' . $relatorio['metas'] . '</p>';
+            }
+            
+            if (isset($relatorio['comentarios'])) {
+                echo '<p class="p"><strong>Comentários:</strong> ' . $relatorio['comentarios'] . '</p>';
+            }
+            
+            if (isset($relatorio['anexos'])) {
+                echo '<h3>Anexos:</h3>';
+                foreach ($relatorio['anexos'] as $anexo) {
+                    // Se $relatorio['anexos'] é uma lista de strings, $anexo será uma string
+                    echo '<p class="p"><a href="' . $anexo . '" target="_blank">' . basename($anexo) . '</a></p>';
+                }
+            }
+>>>>>>> 4d0124dcf69368868606ef6bc2fd08fa9d1cf521
         ?>
     </div>
 </body>
