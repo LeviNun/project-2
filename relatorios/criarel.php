@@ -9,9 +9,15 @@ if (!isset($_SESSION['relatorios'])) {
 // Adicionar condição para criar relatório
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['criar_relatorio_form'])) {
     // Obter dados do formulário
+    $nome_projeto = $_POST['nome_projeto'];
+    $data_projeto = $_POST['data_projeto'];
+    $percentual_conclusao = $_POST['conclusao_projeto'];
     $titulo = $_POST['titulo'];
     $observacao = $_POST['observacao'];
     $metas = $_POST['metas'];
+    $prazos = $_POST['prazos'];
+    $andamentos = $_POST['andamentos'];
+    $objetivos = $_POST['objetivos'];
     $comentarios = $_POST['comentarios'];
 
     // Array para armazenar os caminhos dos arquivos anexados
@@ -37,15 +43,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['criar_relatorio_form'
             }
         }
     }
+
     // Gerar identificador único para o relatório
     $relatorioId = $titulo;
 
     // Relatório com informações e caminhos dos anexos
     $relatorio = array(
         'id' => $relatorioId,
+        'nome_projeto' => $nome_projeto,
+        'data_projeto' => $data_projeto,
+        'conclusao_projeto' => $percentual_conclusao,
         'titulo' => $titulo,
         'observacao' => $observacao,
         'metas' => $metas,
+        'prazos' => $prazos,
+        'andamentos' => $andamentos,
+        'objetivos' => $objetivos,
         'comentarios' => $comentarios,
         'anexos' => $anexos  // Armazenar os caminhos dos anexos
     );
@@ -56,28 +69,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['criar_relatorio_form'
     // Redirecionar de volta para a página de relatórios após criar o relatório
     header("Location: relatorios.php");
     exit();
-}
-
-if (isset($_GET['relatorio']) && is_string($_GET['relatorio'])) {
-    $relatorioId = $_GET['relatorio'];
-
-    // Verificar se o identificador do relatório existe na sessão
-    if (isset($_SESSION['relatorios'][$relatorioId])) {
-        $relatorio = json_decode($_SESSION['relatorios'][$relatorioId], true);
-
-        // Exibir os anexos e fornecer links para download
-        if (isset($relatorio['anexos']) && is_array($relatorio['anexos']) && count($relatorio['anexos']) > 0) {
-            echo '<h3>Anexos:</h3>';
-            foreach ($relatorio['anexos'] as $index => $anexo) {
-                echo '<p><a href="download_anexo.php?relatorio=' . $relatorioId . '&anexo=' . $index . '">Download Anexo ' . ($index + 1) . '</a></p>';
-            }
-        } else {
-            echo '<p>Nenhum anexo disponível.</p>';
-        }
-    } else {
-        echo '<p>Relatório não encontrado.</p>';
-    }
-} else {
-    echo '<p>Parâmetro de relatório inválido.</p>';
 }
 ?>

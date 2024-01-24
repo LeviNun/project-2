@@ -1,6 +1,7 @@
 <?php include 'criarel.php'?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         nav {
@@ -22,7 +23,7 @@
             overflow: hidden;
             text-align: center;
             width: 100%;
-            position: absolute;
+            position: fixed;
             top: 0;
         }
 
@@ -40,17 +41,18 @@
 
         .content {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 70px; /* Ajuste para evitar sobreposição com a barra de navegação */
         }
 
-        h2, h3 {
+        h2,
+        h3 {
             margin-bottom: 20px;
             font-size: 24px;
-            color: #333; /* Cor neutra */
+            color: #333;
         }
 
         #sergipeTec {
-            color: #8e44ad; /* Roxo */
+            color: #8e44ad;
             font-size: 36px;
             font-weight: bold;
             margin-bottom: 10px;
@@ -74,7 +76,10 @@
         }
 
         #formCriarRelatorio input[type="text"],
-        #formCriarRelatorio textarea {
+        #formCriarRelatorio textarea,
+        #formCriarRelatorio input[type="date"],
+        #formCriarRelatorio input[type="number"],
+        #formCriarRelatorio input[type="file"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 16px;
@@ -96,45 +101,108 @@
         #formCriarRelatorio input[type="submit"]:hover {
             background-color: #45a049;
         }
+
+        /* Adiciona regras de estilo para a barra de navegação em dispositivos pequenos */
+        @media screen and (max-width: 600px) {
+            nav a {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-<!-- Conteúdo da Página -->
-<div class="content">
-    <div id="sergipeTec">SergipeTec</div>
-    <h2>Criar Relatório</h2>
+    <!-- Conteúdo da Página -->
+    <div class="content">
+        <div id="sergipeTec">SergipeTec</div>
+        <h2>Criar Relatório</h2>
 
-   <!-- Restante do código permanece inalterado -->
+        <!-- Formulário de Criação de Relatório -->
+        <form id="formCriarRelatorio" action="criar_relatorio.php" method="post" enctype="multipart/form-data">
+            <label for="projeto">Informações do Projeto:</label>
+            <table>
+                <tr>
+                    <td><label for="nome_projeto">Nome do Projeto:</label></td>
+                    <td><input type="text" id="nome_projeto" name="nome_projeto" required></td>
+                </tr>
+                <tr>
+                    <td><label for="data_projeto">Data do Projeto:</label></td>
+                    <td><input type="date" id="data_projeto" name="data_projeto" required></td>
+                </tr>
+                <tr>
+                    <td><label for="conclusao_projeto">Porcentagem de Conclusão:</label></td>
+                    <td><input type="number" id="conclusao_projeto" name="conclusao_projeto" min="0" max="100"
+                            required></td>
+                </tr>
+            </table>
 
-<<!-- Formulário de Criação de Relatório -->
-<form id="formCriarRelatorio" action="criar_relatorio.php" method="post" enctype="multipart/form-data">
+            <label for="titulo">Título do Relatório:</label>
+            <input type="text" id="titulo" name="titulo" required>
 
+            <label for="observacao">Observação:</label>
+            <textarea id="observacao" name="observacao" required></textarea>
 
-    <label for="titulo">Título do Relatório:</label>
-    <input type="text" id="titulo" name="titulo" required>
+            <!-- Meta 1 -->
+            <label for="meta1">Meta 1:</label>
+            <textarea id="meta1" name="metas[]" required></textarea>
 
-    <label for="observacao">Observação:</label>
-    <textarea id="observacao" name="observacao" required></textarea>
+            <!-- Comentários da Meta 1 -->
+            <label for="prazo1">Prazo Meta 1:</label>
+            <textarea id="prazo1" name="prazos[]" required></textarea>
 
-    <label for="metas">Metas:</label>
-    <textarea id="metas" name="metas" required></textarea>
+            <label for="andamento1">Andamento Meta 1:</label>
+            <textarea id="andamento1" name="andamentos[]" required></textarea>
 
-    <label for="comentarios">Comentários:</label>
-    <textarea id="comentarios" name="comentarios" required></textarea>
-    <label for="anexos">Anexos:</label>
-    <input type="file" id="anexos" name="anexos[]" multiple>
+            <label for="objetivo1">Objetivo Meta 1:</label>
+            <textarea id="objetivo1" name="objetivos[]" required></textarea>
 
-    
-    <input type="submit" value="Criar Relatório" name="criar_relatorio_form">
-</form>
-</div>
+            <!-- Meta 2 -->
+            <label for="meta2">Meta 2:</label>
+            <textarea id="meta2" name="metas[]" required></textarea>
 
-<nav>
-    <a href="..\perfil/perfil.php">Perfil</a>
-    <a href="relatorios.php">Relatórios</a>
-    <a href="..\atividades/atividades.php">Atividades</a>
-</nav>
+            <!-- Comentários da Meta 2 -->
+            <label for="prazo2">Prazo Meta 2:</label>
+            <textarea id="prazo2" name="prazos[]" required></textarea>
+
+            <label for="andamento2">Andamento Meta 2:</label>
+            <textarea id="andamento2" name="andamentos[]" required></textarea>
+
+            <label for="objetivo2">Objetivo Meta 2:</label>
+            <textarea id="objetivo2" name="objetivos[]" required></textarea>
+
+            <!-- Meta 3 -->
+            <label for="meta3">Meta 3:</label>
+            <textarea id="meta3" name="metas[]" required></textarea>
+
+            <!-- Comentários da Meta 3 -->
+            <label for="prazo3">Prazo Meta 3:</label>
+            <textarea id="prazo3" name="prazos[]" required></textarea>
+
+            <label for="andamento3">Andamento Meta 3:</label>
+            <textarea id="andamento3" name="andamentos[]" required></textarea>
+
+            <label for="objetivo3">Objetivo Meta 3:</label>
+            <textarea id="objetivo3" name="objetivos[]" required></textarea>
+
+            <label for="comentarios">Comentários Gerais:</label>
+            <textarea id="comentarios" name="comentarios" required></textarea>
+
+            <label for="anexos">Anexos:</label>
+            <input type="file" id="anexos" name="anexos[]" multiple>
+
+            <input type="submit" value="Criar Relatório" name="criar_relatorio_form">
+        </form>
+    </div>
+
+    <nav>
+        <a href="..\perfil/perfil.php">Perfil</a>
+        <a href="relatorios.php">Relatórios</a>
+        <a href="..\atividades/atividades.php">Atividades</a>
+    </nav>
 
 </body>
+
 </html>

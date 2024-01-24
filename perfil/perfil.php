@@ -2,8 +2,8 @@
 session_start();
 
 // Verificar se o usuário está logado
-if (!isset($_SESSION['login'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['cpf'])) {
+    header("Location: ..\login/login.php");
     exit();
 }
 
@@ -11,8 +11,8 @@ if (!isset($_SESSION['login'])) {
 require_once "bd_conectar.php";
 
 // Obter o login do usuário da sessão
-$login = $_SESSION['login'];
-
+$cpf = $_SESSION['cpf'];
+echo"<h1>$cpf </h1>";
 // Inicializar variável de status
 $status = '';
 $uploadStatus = '';
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status_form'])) {
         $sql = "UPDATE login SET status = :status WHERE cpf = :cpf";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':status', $novoStatus);
-        $stmt->bindParam(':cpf', $login);
+        $stmt->bindParam(':cpf', $cpf);
         $stmt->execute();
 
         $status = 'Status atualizado com sucesso.';
@@ -75,7 +75,7 @@ try {
     // Consultar informações do usuário usando o campo de login
     $sql = "SELECT * FROM login WHERE cpf = :cpf";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':cpf', $login);
+    $stmt->bindParam(':cpf', $cpf);
     $stmt->execute();
 
     // Obter os resultados da consulta
@@ -100,7 +100,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styleperfil.css">
+    <link rel="stylesheet" href="pasta_de_estilos/styleperfil.css">
     <title>Perfil</title>
 
 </head>
@@ -126,7 +126,7 @@ try {
     <p><strong>Login:</strong> <?php echo $usuario['login']; ?></p>
     <p><strong>CPF:</strong> <?php echo $usuario['cpf']; ?></p>
     <p><strong>Perfil:</strong> <?php echo $usuario['perfil']; ?></p>
-
+    <p><strong>Perfil:</strong> <?php echo $usuario['setor']; ?></p>
     <!-- Adicionar campo de status -->
     <h3 class="h">Status</h3>
     <div id="statusForm">

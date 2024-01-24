@@ -76,6 +76,21 @@ function obterConteudoPDF($relatorio) {
                 max-width: 100%;
                 max-height: 100%;
             }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            table, th, td {
+                border: 1px solid black;
+            }
+            th, td {
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
         </style>
     </head>
     <body>
@@ -85,12 +100,44 @@ function obterConteudoPDF($relatorio) {
             <h2><?php echo $relatorio['titulo']; ?></h2>
         <?php endif; ?>
 
+        <?php if (isset($relatorio['data_projeto']) && isset($relatorio['conclusao_projeto']) && isset($relatorio['nome_projeto'])): ?>
+    <h3>Informações do Projeto:</h3>
+    <table>
+        <tr>
+            <th>Nome do Projeto</th>
+            <th>Data</th>
+            <th>Porcentagem de Conclusão</th>
+        </tr>
+        <tr>
+            <td><?php echo $relatorio['nome_projeto']; ?></td>
+            <td><?php echo $relatorio['data_projeto']; ?></td>
+            <td><?php echo $relatorio['conclusao_projeto']; ?>%</td>
+        </tr>
+    </table>
+<?php endif; ?>
+
         <?php if (isset($relatorio['observacao'])): ?>
             <p><strong>Observação:</strong> <?php echo $relatorio['observacao']; ?></p>
         <?php endif; ?>
 
-        <?php if (isset($relatorio['metas'])): ?>
-            <p><strong>Metas:</strong> <?php echo $relatorio['metas']; ?></p>
+        <?php if (isset($relatorio['metas']) && is_array($relatorio['metas'])): ?>
+            <h3>Informações do Projeto:</h3>
+            <table>
+                <tr>
+                    <th>Meta</th>
+                    <th>Prazo</th>
+                    <th>Andamento</th>
+                    <th>Objetivo</th>
+                </tr>
+                <?php foreach ($relatorio['metas'] as $index => $meta): ?>
+                    <tr>
+                        <td><?php echo $meta; ?></td>
+                        <td><?php echo $relatorio['prazos'][$index]; ?></td>
+                        <td><?php echo $relatorio['andamentos'][$index]; ?></td>
+                        <td><?php echo $relatorio['objetivos'][$index]; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
         <?php endif; ?>
 
         <?php if (isset($relatorio['comentarios'])): ?>

@@ -1,6 +1,6 @@
 <?php
 class Novologin {
-    public function novologin($login, $senha, $cpf, $nome, $perfil) {
+    public function novologin($login, $senha, $cpf, $nome, $perfil, $setor) {
         try {
             // Incluindo a conexão
             require_once "bd_conectar.php";
@@ -10,7 +10,7 @@ class Novologin {
 
             // Se a conexão não estiver vazia, continue
             if (!empty($conectado)) {
-                $sql = "INSERT INTO login (login, senha, cpf, nome, perfil) VALUES (:login, :senha, :cpf, :nome, :perfil)";
+                $sql = "INSERT INTO login (login, senha, cpf, nome, perfil, setor) VALUES (:login, :senha, :cpf, :nome, :perfil, :setor)";
                 $stmt = $conectado->prepare($sql);
 
                 // Bind dos parâmetros usando bindParam
@@ -19,7 +19,7 @@ class Novologin {
                 $stmt->bindParam(":cpf", $cpf);
                 $stmt->bindParam(":nome", $nome);
                 $stmt->bindParam(":perfil", $perfil);
-
+                $stmt->bindParam(":setor", $setor);
                 $stmt->execute();
 
                 // Verificar se houve registros afetados

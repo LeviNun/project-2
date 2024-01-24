@@ -2,7 +2,7 @@
 session_start();
 
 // Verificar se o usuário está logado
-if (!isset($_SESSION['login'])) {
+if (!isset($_SESSION['cpf'])) {
     header("Location: login.php");
     exit();
 }
@@ -11,7 +11,7 @@ if (!isset($_SESSION['login'])) {
 require_once "bd_conectar.php";
 
 // Obter o login do usuário da sessão
-$login = $_SESSION['login'];
+$cpf = $_SESSION['cpf'];
 // Consultar o banco de dados para obter informações do usuário
 try {
     $conexao = new Conexao();
@@ -20,7 +20,7 @@ try {
     // Consultar informações do usuário usando o campo de login
     $sql = "SELECT * FROM login WHERE cpf = :cpf";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':cpf', $login);
+    $stmt->bindParam(':cpf', $cpf);
     $stmt->execute();
 
     // Obter os resultados da consulta
@@ -44,7 +44,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styleger_atividades.css">
+    <link rel="stylesheet" href="pasta_de_estilos/styleger_atividades.css">
     <title>Gerenciamento de Atividades</title>
 
 </head>

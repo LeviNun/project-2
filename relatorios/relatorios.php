@@ -25,7 +25,7 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
 ?>
 <?php
 // Verificar se o usuário está logado
-if (!isset($_SESSION['login'])) {
+if (!isset($_SESSION['cpf'])) {
     header("Location: login.php");
     exit();
 }
@@ -34,7 +34,7 @@ if (!isset($_SESSION['login'])) {
 require_once "bd_conectar.php";
 
 // Obter o login do usuário da sessão
-$login = $_SESSION['login'];
+$login = $_SESSION['cpf'];
 // Consultar o banco de dados para obter informações do usuário
 try {
     $conexao = new Conexao();
