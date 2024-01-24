@@ -5,9 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="pasta_de_estilos/criar_relatorio.css">
     <title>Criar Relatório - SergipeTec</title>
-<<<<<<< HEAD
     <style>
         body {
             margin: 0;
@@ -161,15 +159,8 @@
             <label for="andamento1">Andamento Meta 1:</label>
             <textarea id="andamento1" name="andamentos[]" required></textarea>
 
-<<<<<<< HEAD
             <label for="objetivo1">Objetivo Meta 1:</label>
             <textarea id="objetivo1" name="objetivos[]" required></textarea>
-=======
-    <label for="comentarios">Comentários:</label>
-    <textarea id="comentarios" name="comentarios" required></textarea>
-    <label for="anexos">Anexos:</label>
-    <input type="file" id="anexos" name="anexos[]" multiple> <br> <br>
->>>>>>> 4d0124dcf69368868606ef6bc2fd08fa9d1cf521
 
             <!-- Meta 2 -->
             <label for="meta2">Meta 2:</label>

@@ -26,11 +26,7 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
 <?php
 // Verificar se o usuário está logado
 if (!isset($_SESSION['cpf'])) {
-<<<<<<< HEAD
     header("Location: login.php");
-=======
-    header("Location: ..\login/login.php");
->>>>>>> 4d0124dcf69368868606ef6bc2fd08fa9d1cf521
     exit();
 }
 
@@ -38,11 +34,7 @@ if (!isset($_SESSION['cpf'])) {
 require_once "bd_conectar.php";
 
 // Obter o login do usuário da sessão
-<<<<<<< HEAD
 $login = $_SESSION['cpf'];
-=======
-$cpf = $_SESSION['cpf'];
->>>>>>> 4d0124dcf69368868606ef6bc2fd08fa9d1cf521
 // Consultar o banco de dados para obter informações do usuário
 try {
     $conexao = new Conexao();
@@ -51,7 +43,7 @@ try {
     // Consultar informações do usuário usando o campo de login
     $sql = "SELECT * FROM login WHERE cpf = :cpf";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':cpf', $cpf);
+    $stmt->bindParam(':cpf', $login);
     $stmt->execute();
 
     // Obter os resultados da consulta
@@ -78,7 +70,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="pasta_de_estilos/style_relatorios.css">
+    <link rel="stylesheet" href="stylerelatorios.css">
     <title>Relatórios</title>
 </head>
 <body class = "body">
