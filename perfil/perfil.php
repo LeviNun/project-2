@@ -126,7 +126,7 @@ try {
     <p><strong>Login:</strong> <?php echo $usuario['login']; ?></p>
     <p><strong>CPF:</strong> <?php echo $usuario['cpf']; ?></p>
     <p><strong>Perfil:</strong> <?php echo $usuario['perfil']; ?></p>
-    <p><strong>Perfil:</strong> <?php echo $usuario['setor']; ?></p>
+    <p><strong>Setor:</strong> <?php echo $usuario['setor']; ?></p>
     <!-- Adicionar campo de status -->
     <h3 class="h">Status</h3>
     <div id="statusForm">
@@ -137,6 +137,7 @@ try {
             <label for="status">Status:</label><br>
             <textarea id="status" name="status" rows="4" cols="50"><?php echo htmlspecialchars($usuario['status']); ?></textarea><br>
             <input type="submit" value="Atualizar Status" name="status_form">
+           <a href="fechar.php">logoff</a>
         </form>
     </div>
 

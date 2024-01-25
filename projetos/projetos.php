@@ -101,13 +101,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
         ?>
     </select>
 
-
+<!--
     <label for="setor_upload">Setor:</label>
-    <select name="setor_upload" id="setor_upload"></select>
+    <select name="setor_upload" id="setor_upload"></select> --> 
     <label for="arquivo">Selecione o arquivo:</label>
     <input type="file" name="arquivo" id="arquivo" required> 
     <button type="submit" name="upload_relatorio">Enviar Relatório</button> <br> <br>
-    
+      
 </form>
 <!--
 <form method = "POST">

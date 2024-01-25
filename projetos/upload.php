@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_relatorio"])) {
     $projeto = $_POST["projeto_upload"];
     $setor = $_POST["setor_upload"];
 
-    if (empty($projeto) || empty($setor)) {
+    if (empty($projeto)) {
         echo "Por favor, forneça o projeto e o setor.";
     } else {
 

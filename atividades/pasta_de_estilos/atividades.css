@@ -9,6 +9,7 @@
 }
 
 .project-box {
+    position: relative; /* Adicionado para posicionar elementos filhos relativos a este elemento */
     background-color: #fff;
     border-radius: 6px; /* Reduzi o raio da borda */
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
@@ -43,4 +44,18 @@
 
 .project-button:hover {
     background-color: #45a049;
+}
+.notification-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color: white;
+    width: 15px; /* Reduzi a largura */
+    height: 15px; /* Reduzi a altura */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px; /* Reduzi o tamanho da fonte */
 }
