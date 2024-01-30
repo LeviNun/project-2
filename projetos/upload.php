@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_relatorio"])) {
     $projeto = $_POST["projeto_upload"];
     $setor = $_POST["setor_upload"];
 
-    if (empty($projeto) || empty($setor)) {
+    if (empty($projeto)) {
         echo "Por favor, forneça o projeto e o setor.";
     } else {
 
@@ -30,23 +30,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_relatorio"])) {
             }
 
             // Verificar se o projeto existe e obter o ID
-            $verifica_projeto = "SELECT projetos.*, setor.* FROM projetos 
-                    INNER JOIN setor ON projetos.id_projeto = setor.id_projeto 
-                    WHERE projetos.nome_projeto = '$projeto'";
-
+            $verifica_projeto = "SELECT id_projeto FROM Projetos WHERE nome_projeto = '$projeto'";
             $resultado = $conexao->query($verifica_projeto);
 
             if ($resultado->num_rows > 0) {
                 $row = $resultado->fetch_assoc();
                 $id_projeto = $row["id_projeto"];
-                $id_setor = $row["id_setor"]; 
 
                 // Continue com a inserção do relatório
                 $nome_relatorio = $nome_arquivo;
                 $caminho_pdf = $caminho_destino;
                 $login_remetente = $_SESSION["login"];
-                $sql = "INSERT INTO Relatorios (id_setor, id_projeto, nome_relatorio, login_remetente, caminho_pdf)
-                 VALUES ('$id_setor', '$id_projeto','$nome_relatorio', '$login_remetente', '$caminho_pdf')";
+                $sql = "INSERT INTO Relatorios (id_projeto, nome_relatorio, login_remetente, caminho_pdf)
+                 VALUES ('$id_projeto', '$nome_relatorio', '$login_remetente', '$caminho_pdf')";
 
                 if ($conexao->query($sql) === TRUE) {
                     echo "oii login $login_remetente enviado com sucesso para o projeto $projeto, setor $setor e registrado no banco de dados.";

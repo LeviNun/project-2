@@ -1,0 +1,96 @@
+<?php
+session_start(); // Certifique-se de iniciar a sessão
+
+/* Verificar se o usuário está autenticado
+if (!isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}*/
+
+// Função simulada para obter a quantidade de relatórios
+function obterQuantidadeRelatorios() {
+    // Lógica simulada para contar os relatórios
+    return 0; // Substitua pelo método real de contagem
+}
+
+$quantidadeRelatorios = obterQuantidadeRelatorios();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios</title>
+    <!-- Adicione seu link para o CSS aqui, se necessário -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .mensagem {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="perfil.php">Perfil</a>
+    <a href="relatorios.php">Relatórios (<?php echo $quantidadeRelatorios; ?>)</a>
+    <a href="projetos.php">Projetos</a>
+</nav>
+
+<!-- Conteúdo da Página -->
+<div style="padding: 20px;">
+    <!-- Adicione o conteúdo específico de relatórios aqui -->
+    <h2>Relatórios</h2>
+    
+    <?php
+    // Se não houver relatórios, exibir mensagem
+    if ($quantidadeRelatorios == 0) {
+        echo '<div class="mensagem">Nenhum relatório encontrado.</div>';
+    } else {
+        // Lógica para exibir a lista de relatórios
+        echo '<p>Aqui está a lista de relatórios:</p>';
+        // Adicione sua lógica real aqui para mostrar a lista de relatórios
+    }
+    ?>
+    
+    <!-- Formulário para criar relatório -->
+    <h3>Criar Relatório</h3>
+    <form action="criar_relatorio.php" method="POST">
+        <!-- Adicione seus campos de formulário aqui conforme necessário -->
+        <label for="titulo">Título do Relatório:</label>
+        <input type="text" id="titulo" name="titulo" required><br>
+        
+        <label for="conteudo">Conteúdo do Relatório:</label>
+        <textarea id="conteudo" name="conteudo" required></textarea><br>
+        
+        <input type="submit" value="Criar Relatório" name="criar_relatorio">
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 <?php 
 include 'projj.php';
-require_once "..\banodedados/bd_conectar.php";
-//session_start(); 
+include 'bd_conectar.php';
+session_start(); 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
     // Processar o formulário para criar um novo projeto
@@ -18,19 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
 
     if ($mysqli->query($sql_inserir_projeto)) { 
         echo "Projeto criado com sucesso.";
-        //$pegar_id = "SELECT id_projeto FROM projetos WHERE nome_projeto='$nome_projeto' AND objetivo='$objetivo'";
-        //$resultado = $mysqli->query($pegar_id);
-        //if ($resultado) { 
-        ///    $linha = $resultado->fetch_assoc();
-            //$id = $linha['id_projeto'];
-            //$_SESSION['id_projeto'] = $id;
-         //} else {
-           // echo"$id";
-            //echo "Erro ao criar o projeto: " . $mysqli->error;
-        //}
+    } else {
+        echo "Erro ao criar o projeto: " . $mysqli->error;
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
     <button type="submit" name="criar_projeto">Criar Projeto</button>
 </form>
 
-<!-- Formulário para adicionar setor 
+<!-- Formulário para adicionar setor -->
 <form method="post" action="">
     <label for="projeto">Escolha um projeto:</label>
     <select name="projeto" id="projeto">
@@ -78,12 +69,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
         }
         ?>
     </select>
+    <!-- Formulário para adicionar setor 
     <label for="nome_setor">Nome do Setor:</label>
     <input type="text" name="nome_setor" id="nome_setor" required>
     <button type="submit" name="adicionar_setor">Adicionar Setor</button>
+    -->
 </form>
--->
-<!-- Formulário para fazer upload de relatório 
+
+<!-- Formulário para fazer upload de relatório -->
 <form method="post" action="upload.php" enctype="multipart/form-data">
 
     <label for="projeto_upload">Escolha um projeto:</label>
@@ -109,15 +102,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
         }
         ?>
     </select>
--->
+
 <!--
     <label for="setor_upload">Setor:</label>
-    <select name="setor_upload" id="setor_upload"></select> 
+    <select name="setor_upload" id="setor_upload"></select> --> 
     <label for="arquivo">Selecione o arquivo:</label>
     <input type="file" name="arquivo" id="arquivo" required> 
     <button type="submit" name="upload_relatorio">Enviar Relatório</button> <br> <br>
       
-</form>--> 
+</form>
 <!--
 <form method = "POST">
     <label for="LabelBuscar">Adicionar funcionarios </label>

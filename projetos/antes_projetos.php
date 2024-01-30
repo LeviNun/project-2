@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "..\banodedados/bd_conectar.php";
+include 'bd_conectar.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

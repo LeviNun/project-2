@@ -1,11 +1,11 @@
 <?php
-require_once "..\banodedados/bd_conectar.php";
+include "bd_conectar.php";
 session_start();
 
 // Certifique-se de validar e filtrar o valor do ID para evitar injeção de SQL ou outros ataques
 $id_projeto = isset($_GET['id_projeto']) ? intval($_GET['id_projeto']) : 0;
 $caminho_projeto = isset($_GET['caminho_projeto']) ? urldecode($_GET['caminho_projeto']) : '';
-/*
+
 // Agora você pode usar $id_projeto e $caminho_projeto na sua página
 echo "ID do Projeto: $id_projeto<br>";
 echo "Caminho do Projeto: <a href='$caminho_projeto'> $caminho_projeto</a> ";
@@ -36,18 +36,6 @@ $resultado_relatorios = $mysqli->query($chave_sql);
 
             echo "</ul>";
         }
-        */  
-        $chave_setor ="SELECT * FROM setor WHERE id_projeto=?";
-        $stmt = $mysqli->prepare($chave_setor);
-        $stmt->bind_param("s", $id_projeto);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        /*while($dados = $result->fetch_assoc()){
-            $nome_setor = $dados["nome"];
-            echo("<h4> $nome_setor </h4>");
-        }
-        $stmt->close();
-        $mysqli->close();*/
 ?>
 
 <!DOCTYPE html>
@@ -56,36 +44,15 @@ $resultado_relatorios = $mysqli->query($chave_sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="pasta_de_estilos/verprojetoscriados.css">
     <title>Document</title>
 </head>
-<body class = "body">
-    <header>
-
-    </header>
-    <section class ="sectionA">
-        <h3>Setores do projeto</h3>
-        <form method="POST">
-            <!--<input id = "busca" type="text" name = "busca"  autocomplete="off" placeholder = "adicione funcionarios" onkeyup ="carregar_colaboradores(this.value)">-->   
-            <span id = "resultado_pesquisa"> <?php  while($dados = $result->fetch_assoc()){
-            $nome_setor = $dados["nome"];
-            $id_setor = $dados["id_setor"];
-            echo '<li><a href="versetorescriados.php?id_setor=' . $id_setor . '&id_projeto=' . $id_projeto . '">' . $dados["nome"] . '</a></li>';
-        }?></span>
-           <!-- <input type="submit" name="add" value="Adicionar funcionario ao projeto">  
-            <input id = "mostrar" style="display: none;" type="text" name = "mostrar" placeholder = "adicione funcionarios">-->
-        </form>
-    </section>
-    <section class ="sectionB">
-        <form action="criar_setor.php">
-            <button class ="buttonsuperior" type="submit" id="butaosuperiordireito">Criar Setores</button>
-        </form>
-    </section>
-
-    <footer>
-
-    </footer>
-    
+<body>
+    <form method="POST">
+        <input id = "busca" type="text" name = "busca"  autocomplete="off" placeholder = "adicione funcionarios" onkeyup ="carregar_colaboradores(this.value)">
+        <span id = "resultado_pesquisa"></span>
+        <input type="submit" name="add" value="Adicionar funcionario ao projeto">  
+        <input id = "mostrar" style="display: none;" type="text" name = "mostrar" placeholder = "adicione funcionarios">
+    </form>
 
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -120,7 +87,7 @@ $resultado_relatorios = $mysqli->query($chave_sql);
             }
         }
     }
- }
+}
 ?>
 
 <script src="projeto.js";> </script>

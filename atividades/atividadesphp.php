@@ -1,6 +1,6 @@
 <?php 
 include '..\<projetos/projj.php';
-require_once "..\banodedados/bd_conectar.php";
+include 'bd_conectar.php';
 session_start(); 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {

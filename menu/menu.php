@@ -8,7 +8,7 @@ if (!isset($_SESSION['cpf'])) {
 }
 
 // Incluir o arquivo de conexão com o banco de dados
-require_once "..\banodedados/bd_conectar.php";
+require_once "bd_conectar.php";
 
 // Obter o login do usuário da sessão
 $cpf = $_SESSION['cpf'];

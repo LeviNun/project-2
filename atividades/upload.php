@@ -2,17 +2,23 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_relatorio"])) {
+    // Constantes de configuração
+    define("DIRETORIO_PROJETOS", '../projetos/projetos');
+    define("EXTENSOES_PERMITIDAS", ["pdf", "doc", "docx"]);
+
     // Verifica se o projeto foi fornecido
     $projeto = $_POST["projeto_upload"];
 
     if (empty($projeto)) {
         echo "Por favor, forneça o projeto.";
     } else {
-        
         // Cria a pasta do projeto se não existir
-        $caminho_projeto = '../projetos' . '/' . $projeto;
+        $caminho_projeto = DIRETORIO_PROJETOS . '/' . $projeto;
+
         if (!file_exists($caminho_projeto)) {
-            mkdir($caminho_projeto, 0777, true);
+            if (!mkdir($caminho_projeto, 0777, true)) {
+                throw new Exception("Erro ao criar a pasta do projeto.");
+            }
         }
 
         // Move o arquivo para a pasta do projeto
@@ -20,38 +26,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_relatorio"])) {
         $nome_arquivo = basename($_FILES["arquivo"]["name"]);
         $caminho_destino = $caminho_projeto . '/' . $nome_arquivo;
 
-        if (move_uploaded_file($arquivo_temporario, $caminho_destino)) {
+        // Verifica o tipo de arquivo usando mime_content_type
+        $tipo_mime = mime_content_type($arquivo_temporario);
+        if (!in_array($tipo_mime, ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"])) {
+            throw new Exception("Erro: Apenas arquivos PDF, DOC e DOCX são permitidos.");
+        }
 
+        if (move_uploaded_file($arquivo_temporario, $caminho_destino)) {
             // Inserir informações no banco de dados
             $conexao = new mysqli("localhost", "root", "", "sistemaacademico");
 
             if ($conexao->connect_error) {
-                die("Falha na conexão com o banco de dados: " . $conexao->connect_error);
+                throw new Exception("Falha na conexão com o banco de dados: " . $conexao->connect_error);
             }
 
-            // Verificar se o projeto existe e obter o ID
+            // Utilizar declaração preparada para evitar injeção de SQL
+            $stmt = $conexao->prepare("INSERT INTO relatorios (id_projeto, nome_relatorio, login_remetente, caminho_pdf) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $id_projeto, $nome_relatorio, $login_remetente, $caminho_pdf);
+
             $id_projeto = $projeto;
-
-            // Continue com a inserção do relatório
             $nome_relatorio = $nome_arquivo;
-            $caminho_pdf = $caminho_destino;
             $login_remetente = $_SESSION["login"];
-            $sql = "INSERT INTO Relatorios (id_projeto, nome_relatorio, login_remetente, caminho_pdf)
-             VALUES ('$id_projeto', '$nome_relatorio', '$login_remetente', '$caminho_pdf')";
+            $caminho_pdf = $caminho_destino;
 
-            if ($conexao->query($sql) === TRUE) {
+            if ($stmt->execute()) {
                 echo "Relatório enviado com sucesso para o projeto $projeto e registrado no banco de dados.";
-                
+
                 // Adiciona um link para o arquivo enviado
                 echo "<br><a href='$caminho_pdf' target='_blank'>Abrir Arquivo</a>";
             } else {
-                echo "Erro ao enviar o relatório e registrar no banco de dados: " . $conexao->error;
+                throw new Exception("Erro ao enviar o relatório e registrar no banco de dados: " . $stmt->error);
             }
 
+            $stmt->close();
             $conexao->close();
-
         } else {
-            echo "Erro ao enviar o relatório.";
+            throw new Exception("Erro ao enviar o relatório.");
         }
     }
 }
