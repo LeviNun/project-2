@@ -43,7 +43,11 @@ while ($dados = $resultado->fetch_assoc()) {
         $viw = 1;
         $_SESSION['id_setor'] = $id_setor;
         $_SESSION['nome_setor'] = $nome_setor;
+<<<<<<< Updated upstream
         $_SESSION['objetivo'] = $objetivo;
+=======
+        $_SESSION['objetivo_setor'] = $objetivo;
+>>>>>>> Stashed changes
 
         $chave_atualizar = "UPDATE col_projeto SET viw = ? WHERE id_setor = ?";
         $stmt_atualizar = $mysqli->prepare($chave_atualizar);

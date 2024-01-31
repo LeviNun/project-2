@@ -169,11 +169,14 @@ if (isset($relatorio['metas'])) {
     }
     echo '</table>';
 }
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 
             if (isset($relatorio['observacao'])) {
                 echo '<p><strong>Observação:</strong> ' . $relatorio['observacao'] . '</p>';
             }
+=======
+>>>>>>> Stashed changes
 
             if (isset($relatorio['metas'])) {
                 echo '<p><strong>Metas:</strong> ' . $relatorio['metas'] . '</p>';

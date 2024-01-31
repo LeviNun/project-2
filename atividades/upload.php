@@ -10,7 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_relatorio"])) {
     } else {
         
         // Cria a pasta do projeto se não existir
+<<<<<<< Updated upstream
         $caminho_projeto = '../projetos' . '/' . $projeto;
+=======
+        $caminho_projeto = '../arquivo' . '/' . $projeto;
+>>>>>>> Stashed changes
         if (!file_exists($caminho_projeto)) {
             mkdir($caminho_projeto, 0777, true);
         }

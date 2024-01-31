@@ -1,8 +1,11 @@
 <?php 
 include 'projj.php';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 include 'bd_conectar.php'
 =======
+=======
+>>>>>>> Stashed changes
 require_once "..\banodedados/bd_conectar.php";
 //session_start(); 
 
@@ -34,6 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
     }
 }
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 ?>
 
@@ -112,6 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
         ?>
     </select>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 
     <label for="setor_upload">Setor:</label>
@@ -122,6 +129,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
     
 </form>
 =======
+=======
+>>>>>>> Stashed changes
 -->
 <!--
     <label for="setor_upload">Setor:</label>

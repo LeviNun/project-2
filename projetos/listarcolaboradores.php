@@ -1,8 +1,11 @@
 <?php
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 include_once "bd_conectar.php"; 
 
 =======
+=======
+>>>>>>> Stashed changes
 require_once "..\banodedados/bd_conectar.php";
 session_start();
 >>>>>>> Stashed changes

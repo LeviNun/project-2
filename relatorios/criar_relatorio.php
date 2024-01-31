@@ -100,7 +100,10 @@
      
 </head>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 <script>
         function toggleMetasVisibility() {
             var meta2 = document.getElementById('meta2');
@@ -127,6 +130,9 @@
             objetivo3.style.display = checkboxMeta3.checked ? 'block' : 'none';
         }
     </script>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 <body>
 
