@@ -1,5 +1,12 @@
+<<<<<<< Updated upstream
 <?php
 include "bd_conectar.php";
+=======
+<?php 
+include '..\<projetos/projj.php';
+require_once "..\banodedados/bd_conectar.php";
+session_start(); 
+>>>>>>> Stashed changes
 
 if (!isset($_POST['busca'])) {
     session_start();

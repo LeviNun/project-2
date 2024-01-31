@@ -63,7 +63,7 @@ $dados= filter_input_array(INPUT_POST,FILTER_DEFAULT);
 if(!empty($dados["entrar"])){
    if(!empty($dados["login"]) && !empty($dados["senha"]) && isset($dados["cpf"])){
     require_once "bd_novologin.php";
-    require_once "bd_conectar.php";
+    require_once "..\banodedados/bd_conectar.php";
     $login = $dados["login"];
     $verifica_sql = "SELECT * FROM login WHERE login= '$login'";
     $sql_query = $mysqli->query($verifica_sql) or die("ERRO ao consultar! " . $mysqli->error); 

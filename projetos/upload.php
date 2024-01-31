@@ -20,7 +20,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_relatorio"])) {
         $caminho_destino = $caminho_projeto . DIRECTORY_SEPARATOR . $nome_arquivo;
 
         if (move_uploaded_file($arquivo_temporario, $caminho_destino)) {
+<<<<<<< Updated upstream
             echo "Relatório enviado com sucesso para o projeto $projeto, setor $setor.";
+=======
+
+            // Inserir informações no banco de dados
+            $conexao = new mysqli("localhost", "root", "", "sistemaacademico");
+
+            if ($conexao->connect_error) {
+                die("Falha na conexão com o banco de dados: " . $conexao->connect_error);
+            }
+
+            // Verificar se o projeto existe e obter o ID
+            $verifica_projeto = "SELECT projetos.*, setor.* FROM projetos 
+                    INNER JOIN setor ON projetos.id_projeto = setor.id_projeto 
+                    WHERE projetos.nome_projeto = '$projeto'";
+
+            $resultado = $conexao->query($verifica_projeto);
+
+            if ($resultado->num_rows > 0) {
+                $row = $resultado->fetch_assoc();
+                $id_projeto = $row["id_projeto"];
+                $id_setor = $row["id_setor"]; 
+
+                // Continue com a inserção do relatório
+                $nome_relatorio = $nome_arquivo;
+                $caminho_pdf = $caminho_destino;
+                $login_remetente = $_SESSION["login"];
+                $sql = "INSERT INTO Relatorios (id_setor, id_projeto, nome_relatorio, login_remetente, caminho_pdf)
+                 VALUES ('$id_setor', '$id_projeto','$nome_relatorio', '$login_remetente', '$caminho_pdf')";
+
+                if ($conexao->query($sql) === TRUE) {
+                    echo "oii login $login_remetente enviado com sucesso para o projeto $projeto, setor $setor e registrado no banco de dados.";
+                } else {
+                    echo "Erro ao enviar o relatório e registrar no banco de dados: " . $conexao->error;
+                }
+            } else {
+                echo "O projeto não foi encontrado na tabela Projetos.";
+            }
+
+            $conexao->close();
+
+>>>>>>> Stashed changes
         } else {
             echo "Erro ao enviar o relatório.";
         }

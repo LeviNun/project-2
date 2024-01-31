@@ -31,7 +31,7 @@ if (!isset($_SESSION['login'])) {
 }
 
 // Incluir o arquivo de conexão com o banco de dados
-require_once "bd_conectar.php";
+require_once "..\banodedados/bd_conectar.php";
 
 // Obter o login do usuário da sessão
 $login = $_SESSION['login'];
@@ -89,7 +89,10 @@ try {
             echo '<a href="mostrar_relatorio.php?relatorio='.$index.'">Relatório '.($index ).'</a>';
             echo ' | ';
             echo '<a href="relatorios.php?acao=apagar&relatorio=' . $index . '">Apagar</a>';
+            echo ' | ';
+            echo '<a href="editar_relatorio.php?relatorio=' . $index . '">Editar</a>';
             echo '</p>';
+            
         }
     } else {
         echo '<p>Nenhum relatório disponível.</p>';

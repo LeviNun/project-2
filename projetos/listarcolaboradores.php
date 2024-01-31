@@ -1,6 +1,11 @@
 <?php
+<<<<<<< Updated upstream
 include_once "bd_conectar.php"; 
 
+=======
+require_once "..\banodedados/bd_conectar.php";
+session_start();
+>>>>>>> Stashed changes
 $nome = filter_input(INPUT_GET, "nome", FILTER_SANITIZE_STRING);
 if (!empty($nome)) {
     $pesq_cola = "%" . $nome . "%";

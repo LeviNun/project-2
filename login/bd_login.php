@@ -3,7 +3,7 @@ class login{
 public function login($login,$senha){
      try {
         //Incluindo a conexão
-        require_once "bd_conectar.php";
+        require_once "..\banodedados/bd_conectar.php";
         $con= new Conexao();
         //chamando a função connect() com retorno
 

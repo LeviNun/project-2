@@ -3,7 +3,7 @@ class Novologin {
     public function novologin($login, $senha, $cpf, $nome, $perfil) {
         try {
             // Incluindo a conexão
-            require_once "bd_conectar.php";
+            require_once "..\banodedados/bd_conectar.php";
             $con = new Conexao();
             // Chamando a função connect() com retorno
             $conectado = $con->connect();

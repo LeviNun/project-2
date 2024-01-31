@@ -97,7 +97,37 @@
             background-color: #45a049;
         }
     </style>
+     
 </head>
+<<<<<<< Updated upstream
+=======
+<script>
+        function toggleMetasVisibility() {
+            var meta2 = document.getElementById('meta2');
+            var prazo2 = document.getElementById('prazo2');
+            var andamento2 = document.getElementById('andamento2');
+            var objetivo2 = document.getElementById('objetivo2');
+
+            var meta3 = document.getElementById('meta3');
+            var prazo3 = document.getElementById('prazo3');
+            var andamento3 = document.getElementById('andamento3');
+            var objetivo3 = document.getElementById('objetivo3');
+
+            var checkboxMeta2 = document.getElementById('adicionar_meta2');
+            var checkboxMeta3 = document.getElementById('adicionar_meta3');
+
+            meta2.style.display = checkboxMeta2.checked ? 'block' : 'none';
+            prazo2.style.display = checkboxMeta2.checked ? 'block' : 'none';
+            andamento2.style.display = checkboxMeta2.checked ? 'block' : 'none';
+            objetivo2.style.display = checkboxMeta2.checked ? 'block' : 'none';
+
+            meta3.style.display = checkboxMeta3.checked ? 'block' : 'none';
+            prazo3.style.display = checkboxMeta3.checked ? 'block' : 'none';
+            andamento3.style.display = checkboxMeta3.checked ? 'block' : 'none';
+            objetivo3.style.display = checkboxMeta3.checked ? 'block' : 'none';
+        }
+    </script>
+>>>>>>> Stashed changes
 <body>
 
 <!-- Conteúdo da Página -->
@@ -125,6 +155,7 @@
     <label for="anexos">Anexos:</label>
     <input type="file" id="anexos" name="anexos[]" multiple>
 
+<<<<<<< Updated upstream
     
     <input type="submit" value="Criar Relatório" name="criar_relatorio_form">
 </form>
@@ -135,6 +166,58 @@
     <a href="relatorios.php">Relatórios</a>
     <a href="..\atividades/atividades.php">Atividades</a>
 </nav>
+=======
+            <!-- Meta 2 -->
+    <label for="adicionar_meta2">Adicionar Meta 2:</label>
+    <input type="checkbox" id="adicionar_meta2" onclick="toggleMetasVisibility()">
+
+        <label for="meta2">Meta 2:</label>
+        <textarea id="meta2" name="metas[]"></textarea>
+
+        <!-- Comentários da Meta 2 -->
+        <label for="prazo2">Prazo Meta 2:</label>
+        <textarea id="prazo2" name="prazos[]"></textarea>
+
+        <label for="andamento2">Andamento Meta 2:</label>
+        <textarea id="andamento2" name="andamentos[]"></textarea>
+
+        <label for="objetivo2">Objetivo Meta 2:</label>
+        <textarea id="objetivo2" name="objetivos[]"></textarea>
+  
+
+    <!-- Meta 3 -->
+    <label for="adicionar_meta3">Adicionar Meta 3:</label>
+    <input type="checkbox" id="adicionar_meta3" onclick="toggleMetasVisibility()">
+
+        <label for="meta3">Meta 3:</label>
+        <textarea id="meta3" name="metas[]"></textarea>
+
+        <!-- Comentários da Meta 3 -->
+        <label for="prazo3">Prazo Meta 3:</label>
+        <textarea id="prazo3" name="prazos[]"></textarea>
+
+        <label for="andamento3">Andamento Meta 3:</label>
+        <textarea id="andamento3" name="andamentos[]"></textarea>
+
+        <label for="objetivo3">Objetivo Meta 3:</label>
+        <textarea id="objetivo3" name="objetivos[]"></textarea>
+
+            <label for="comentarios">Comentários Gerais:</label>
+            <textarea id="comentarios" name="comentarios" required></textarea>
+
+            <label for="anexos">Anexos:</label>
+            <input type="file" id="anexos" name="anexos[]" multiple>
+
+            <input type="submit" value="Criar Relatório" name="criar_relatorio_form">
+        </form>
+    </div>
+
+    <nav>
+        <a href="..\perfil/perfil.php">Perfil</a>
+        <a href="relatorios.php">Relatórios</a>
+        <a href="..\atividades/atividades.php">Atividades</a>
+    </nav>
+>>>>>>> Stashed changes
 
 </body>
 </html>
