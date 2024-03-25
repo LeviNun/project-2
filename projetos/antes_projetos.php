@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'bd_conectar.php';
+require_once "..\bancodedados/bd_conectar.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,11 +16,11 @@ include 'bd_conectar.php';
     </form>
 </body>
 <?php
-    $sql = "SELECT id_projeto, nome_projeto, caminho_projeto, login_criador FROM projetos";
+    $sql = "SELECT * FROM projetos";
     $result = $mysqli->query($sql);
 
     // Verifica se há resultados
-    if($result->num_rows > 1){
+    if($result->num_rows >= 1){
         echo('<h3> Seus projetos:</h3>');
         if ($result->num_rows > 0) {
             echo '<ul>';
@@ -29,7 +29,7 @@ include 'bd_conectar.php';
                 if($row['login_criador'] == $_SESSION['login']){
                     $id_proj = $row["id_projeto"];
                     $caminho = $row["caminho_projeto"];
-                    echo '<li><a href="verprojetoscriados.php?id_projeto=' . $id_proj . '&caminho_projeto=' . urlencode($caminho) . '">' . $row["nome_projeto"] . '</a></li>';
+                    echo '<li><a href="verprojetoscriados.php?id_projeto=' . $id_proj . '&caminho_projeto=' . urlencode($caminho) . '&nome_projeto=' . urlencode($row["nome_projeto"]) . '">' . $row["nome_projeto"] . '</a></li>';
                 }
             }
             echo '</ul>';    

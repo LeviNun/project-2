@@ -8,7 +8,7 @@ if (!isset($_SESSION['cpf'])) {
 }
 
 // Incluir o arquivo de conexão com o banco de dados
-require_once "bd_conectar.php";
+require_once "..\bancodedados/bd_conectar.php";
 
 // Obter o login do usuário da sessão
 $cpf = $_SESSION['cpf'];
@@ -177,7 +177,7 @@ try {
     <?php
     if($usuario['perfil'] == 'gestor'){
         echo '<a href="..\gerenciaratividades/ger_atividades.php">Gerenciar atividades</a>';
-        echo' <a href="..\projetos/projetos.php">Projetos</a>';
+        echo' <a href="..\projetos/antes_projetos.php">Projetos</a>';
     }else if($usuario['perfil'] == 'funcionario'){
         echo'<a href="..\relatorios/relatorios.php">Relatórios</a>';
         echo'<a href="..\atividades/atividades.php">Atividades</a>';

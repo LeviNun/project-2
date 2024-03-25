@@ -1,11 +1,27 @@
 <?php 
+require_once "..\bancodedados/bd_conectar.php";
 session_start();
 $id_projeto_clicado = $_SESSION['id_projeto'];
 $nome_projeto = $_SESSION['nome_projeto'];
 $objetivo = $_SESSION['objetivo'];
+$login_criador = $_SESSION['login'];
+$id_setor = $_SESSION['id_setor'];
+$nome_setor = $_SESSION['nome_setor'];
+$objetivo_setor = $_SESSION['objetivo_setor'];
 // Faça algo com $id_projeto_clicado
 //echo "ID do Projeto Clicado: " . $id_projeto_clicado . $nome_projeto .  $objetivo ;
 //echo"";   
+$chave_mysqli ="SELECT * FROM relatorios WHERE login_remetente=?";
+$stmt = $mysqli->prepare($chave_mysqli);
+$stmt->bind_Param("s", $login_criador);
+$stmt->execute();
+$rows = array();
+$result =$stmt->get_result();
+if($row = $result->fetch_assoc()){
+    $rows[] = $row;   
+}
+$stmt->close();
+$mysqli->close();
 
 ?>
 <!DOCTYPE html>
@@ -24,10 +40,9 @@ $objetivo = $_SESSION['objetivo'];
 
 <main>
     <div class="project-details">
-        <h2>Projeto: <?= $nome_projeto;  ?></h2>
-        <p>Descrição detalhada do <?= $nome_projeto.': '. $objetivo?> </p>
-    
-        <form method="POST" action="upload.php" enctype="multipart/form-data">
+        <h2>Setor: <?= $nome_setor;  ?></h2>
+        <p>Descrição detalhada do <?= $nome_setor.': '. $objetivo_setor?> </p>
+            <form method="POST" action="guardapdf.php" enctype="multipart/form-data">
             <label for="arquivo">Selecione o arquivo:</label>
             <input type="file" name="arquivo" id="arquivo" required>
             <label for="projeto_upload">Projeto:</label>
@@ -35,7 +50,7 @@ $objetivo = $_SESSION['objetivo'];
             <button class="back-button" type="submit" name="upload_relatorio">Enviar relatório</button>
         </form>        
             <button class="back-button" onclick="history.back()">Voltar</button>
-
+            
     </div>
 </main>
 

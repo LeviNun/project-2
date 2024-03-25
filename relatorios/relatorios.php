@@ -1,7 +1,6 @@
 
 <?php
 session_start();
-
 // Adicionar condição para criar relatório
 if (isset($_POST['criar_relatorio_form'])) {
     // Redirecionar para a página de criação de relatório
@@ -31,7 +30,7 @@ if (!isset($_SESSION['cpf'])) {
 }
 
 // Incluir o arquivo de conexão com o banco de dados
-require_once "bd_conectar.php";
+require_once "..\bancodedados/bd_conectar.php";
 
 // Obter o login do usuário da sessão
 $login = $_SESSION['cpf'];
@@ -89,7 +88,10 @@ try {
             echo '<a href="mostrar_relatorio.php?relatorio='.$index.'">Relatório '.($index ).'</a>';
             echo ' | ';
             echo '<a href="relatorios.php?acao=apagar&relatorio=' . $index . '">Apagar</a>';
+            echo ' | ';
+            echo '<a href="editar_relatorio.php?relatorio=' . $index . '">Editar</a>';
             echo '</p>';
+            
         }
     } else {
         echo '<p>Nenhum relatório disponível.</p>';

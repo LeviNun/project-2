@@ -1,8 +1,7 @@
 <?php 
 include 'projj.php';
-include 'bd_conectar.php';
-session_start(); 
-
+require_once "..\bancodedados/bd_conectar.php";
+//session_start(); 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
     // Processar o formulário para criar um novo projeto
     $nome_projeto = $mysqli->real_escape_string($_POST['nome_projeto']);
@@ -10,18 +9,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
     $caminho_projeto = '..\projetos/projetos/';
     $login_criador = $_SESSION['login'];
     $data = date("Y-m-d H:i:s");
-     // Substitua pelo caminho real do seu diretório    no servidor
-    // Insira os dados do novo projeto no banco de dados
-    $sql_inserir_projeto = "INSERT INTO projetos
-    (nome_projeto, login_criador, caminho_projeto, objetivo,dt_criada)
-    VALUES ('$nome_projeto', '$login_criador', '$caminho_projeto', '$objetivo', '$data')";
 
-    if ($mysqli->query($sql_inserir_projeto)) { 
-        echo "Projeto criado com sucesso.";
+    // Verificar se o nome do projeto já existe
+    $sql_verificar_nome = "SELECT * FROM projetos WHERE nome_projeto = '$nome_projeto' AND login_criador = '$login_criador'";
+    $resultado_verificar_nome = $mysqli->query($sql_verificar_nome);
+
+    if ($resultado_verificar_nome->num_rows > 0) {
+        echo "Erro: O nome do projeto já existe. Escolha um nome diferente.";
     } else {
-        echo "Erro ao criar o projeto: " . $mysqli->error;
+        // Inserir os dados do novo projeto no banco de dados
+        $sql_inserir_projeto = "INSERT INTO projetos (nome_projeto, login_criador, caminho_projeto, objetivo, dt_criada)
+                                VALUES ('$nome_projeto', '$login_criador', '$caminho_projeto', '$objetivo', '$data')";
+
+        if ($mysqli->query($sql_inserir_projeto)) {
+            echo "Projeto criado com sucesso.";
+        } else {
+            echo "Erro ao criar o projeto: " . $mysqli->error;
+        }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -42,9 +49,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
     <label for="objetivo">digite o objetivo:</label>
     <input type="text" name="objetivo" required>
     <button type="submit" name="criar_projeto">Criar Projeto</button>
+    <a href="antes_projetos.php">
+    <button class="back-button" type="button">Voltar</button>
+    </a>
 </form>
 
-<!-- Formulário para adicionar setor -->
+<!-- Formulário para adicionar setor 
 <form method="post" action="">
     <label for="projeto">Escolha um projeto:</label>
     <select name="projeto" id="projeto">
@@ -73,8 +83,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
     <input type="text" name="nome_setor" id="nome_setor" required>
     <button type="submit" name="adicionar_setor">Adicionar Setor</button>
 </form>
-
-<!-- Formulário para fazer upload de relatório -->
+-->
+<!-- Formulário para fazer upload de relatório 
 <form method="post" action="upload.php" enctype="multipart/form-data">
 
     <label for="projeto_upload">Escolha um projeto:</label>
@@ -100,15 +110,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_projeto'])) {
         }
         ?>
     </select>
-
+-->
 <!--
     <label for="setor_upload">Setor:</label>
-    <select name="setor_upload" id="setor_upload"></select> --> 
+    <select name="setor_upload" id="setor_upload"></select> 
     <label for="arquivo">Selecione o arquivo:</label>
     <input type="file" name="arquivo" id="arquivo" required> 
     <button type="submit" name="upload_relatorio">Enviar Relatório</button> <br> <br>
       
-</form>
+</form>--> 
 <!--
 <form method = "POST">
     <label for="LabelBuscar">Adicionar funcionarios </label>

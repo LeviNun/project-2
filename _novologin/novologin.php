@@ -66,16 +66,17 @@
 
     <?php 
 $dados= filter_input_array(INPUT_POST,FILTER_DEFAULT);
+$data = date("Y-m-d H:i:s");
 if(!empty($dados["entrar"])){
    if(!empty($dados["login"]) && !empty($dados["senha"]) && isset($dados["cpf"])){
     require_once "bd_novologin.php";
-    require_once "bd_conectar.php";
+    require_once "..\bancodedados/bd_conectar.php";
     $login = $dados["login"];
     $verifica_sql = "SELECT * FROM login WHERE login= '$login'";
     $sql_query = $mysqli->query($verifica_sql) or die("ERRO ao consultar! " . $mysqli->error); 
     if ($sql_query->num_rows == 0) {
         $slog = new Novologin();
-        $slog->novologin($dados['login'],$dados['senha'],$dados['cpf'],$dados['nome'],$dados['perfil'], $dados['setor']);
+        $slog->novologin($dados['login'],$dados['senha'],$dados['cpf'],$dados['nome'],$dados['perfil'], $dados['setor'], $data );
     }else{
         ?><h6><?php echo"Alguem ja usa esse login, ultilize outro por favor";  ?></h6>
         <?php

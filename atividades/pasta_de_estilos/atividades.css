@@ -40,6 +40,15 @@
     border-radius: 3px; /* Reduzi mais o raio da borda do botão */
     cursor: pointer;
     font-size: 12px;  /* Reduzi mais o tamanho da fonte do botão */
+} 
+.project-button1 {
+    background-color: #1b196e;
+    color: #fff;
+    padding: 6px 10px;  /* Reduzi mais o padding do botão */
+    border: none;
+    border-radius: 3px; /* Reduzi mais o raio da borda do botão */
+    cursor: pointer;
+    font-size: 12px;  /* Reduzi mais o tamanho da fonte do botão */
 }
 
 .project-button:hover {

@@ -8,7 +8,7 @@ if (!isset($_SESSION['cpf'])) {
 }
 
 // Incluir o arquivo de conexão com o banco de dados
-require_once "bd_conectar.php";
+require_once "..\bancodedados/bd_conectar.php";
 
 // Obter o login do usuário da sessão
 $cpf = $_SESSION['cpf'];
@@ -39,7 +39,7 @@ try {
     $conn = null;
 }
 ?>
-    
+
 <!DOCTYPE html>
 <html lang="PT-br">
 <head>
@@ -48,6 +48,7 @@ try {
     <link rel="stylesheet" href="pasta_de_estilos/stylemenu.css">
     <title>TESTE</title>
 </head>
+
 <body class = "body">
 <!-- Conteúdo da Página -->
 <div class="content">
@@ -56,11 +57,13 @@ try {
 </div>
 
 <nav class = "nav">
+  
     <a href="https://sergipetec.org.br/" title="Sergipetec" rel="home">
         <img data-interchange="[http://sergipetec.org.br/wp-content/uploads/2016/04/sergipetec300x140.png, (default)], [http://sergipetec.org.br/wp-content/uploads/2016/04/sergipetec600x280.png, (retina)]" alt="" class="hideie" data-uuid="62ab370c-836f-46ab-4978-ee131e86227d" src="http://sergipetec.org.br/wp-content/uploads/2016/04/sergipetec300x140.png">
         <noscript><img src='http://sergipetec.org.br/wp-content/uploads/2016/04/sergipetec300x140.png' alt='Sergipetec'></noscript>
     </a>
     <a href="..\perfil/perfil.php">Meu perfil</a>
+    
     <?php
     if($usuario['perfil'] == 'gestor'){
     echo '<a id = "ger" href = "..\gerenciaratividades/ger_atividades.php">Gerenciar atividades</a>';

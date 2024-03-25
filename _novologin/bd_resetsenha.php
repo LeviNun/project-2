@@ -3,7 +3,7 @@ class Resetsenha{
 public function resetsenha($login,$senha,$cpf){
      try {
         //Incluindo a conexão
-        require_once "bd_conectar.php";
+        require_once "../bancodedados/bd_conectar.php";
         $con= new Conexao();
         //chamando a função connect() com retorno
 

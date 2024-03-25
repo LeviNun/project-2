@@ -8,7 +8,7 @@ if (!isset($_SESSION['cpf'])) {
 }
 
 // Incluir o arquivo de conexão com o banco de dados
-require_once "bd_conectar.php";
+require_once "..\bancodedados/bd_conectar.php";
 
 // Obter o login do usuário da sessão
 $cpf = $_SESSION['cpf'];
@@ -127,7 +127,7 @@ function enviarAtividades($atividades) {
   <a id = "ger" href = "..\menu/menu.php">Voltar menu</a>
   <?php
   if($usuario['perfil'] == 'gestor'){
-    echo '<a href="..\projetos/projetos.php">Projetos</a>';
+    echo '<a href="..\projetos/antes_projetos.php">Projetos</a>';
     }else if($usuario['perfil'] == 'aluno'){
         echo '<a id = "ger" href = "..\atividades/atividades.php">Atividades</a>';
         echo '<a href="..\relatorios/relatorios.php">Relatorios</a>';

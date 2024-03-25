@@ -164,20 +164,23 @@ if (isset($_GET['acao']) && $_GET['acao'] === 'apagar' && isset($_GET['relatorio
         echo '</table>';
 
         // Exibir informações de metas em uma tabela
-        if (isset($relatorio['metas'])) {
-            echo '<h3>Metas:</h3>';
-            echo '<table>';
-            echo '<tr><th>Meta</th><th>Prazo</th><th>Andamento</th><th>Objetivo</th></tr>';
-            foreach ($relatorio['metas'] as $index => $meta) {
-                echo '<tr>';
-                echo '<td>' . $meta . '</td>';
-                echo '<td>' . $relatorio['prazos'][$index] . '</td>';
-                echo '<td>' . $relatorio['andamentos'][$index] . '</td>';
-                echo '<td>' . $relatorio['objetivos'][$index] . '</td>';
-                echo '</tr>';
-            }
-            echo '</table>';
+if (isset($relatorio['metas'])) {
+    echo '<h3>Metas:</h3>';
+    echo '<table>';
+    echo '<tr><th>Meta</th><th>Prazo</th><th>Andamento</th><th>Objetivo</th></tr>';
+    foreach ($relatorio['metas'] as $index => $meta) {
+        // Verificar se as informações da meta estão presentes
+        if (!empty($meta)) {
+            echo '<tr>';
+            echo '<td>' . $meta . '</td>';
+            echo '<td>' . $relatorio['prazos'][$index] . '</td>';
+            echo '<td>' . $relatorio['andamentos'][$index] . '</td>';
+            echo '<td>' . $relatorio['objetivos'][$index] . '</td>';
+            echo '</tr>';
         }
+    }
+    echo '</table>';
+}
 
         if (isset($relatorio['comentarios'])) {
             echo '<p><strong>Comentários:</strong> ' . $relatorio['comentarios'] . '</p>';

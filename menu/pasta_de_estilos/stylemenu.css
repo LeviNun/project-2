@@ -46,3 +46,28 @@
     font-size: 24px;
     color: #333; /* Cor neutra */
 }
+.notification-badge {
+    background: #c82333;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid blue; 
+}
+.project-box {
+    position: relative; /* Adicionado para posicionar elementos filhos relativos a este elemento */
+    background-color: #fff;
+    border-radius: 6px; /* Reduzi o raio da borda */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;  /* Reduzi mais o padding */
+    margin: 8px;  /* Reduzi mais a margem */
+    max-width: 250px;  /* Reduzi o tamanho máximo ainda mais */
+    width: 100%;
+}
